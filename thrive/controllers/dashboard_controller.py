@@ -12,4 +12,4 @@ def get_dashboard_root():
         service status response message
         :return: Status response json
     """
-    return render_template("home/index.html")
+    return render_template("dashboard/index.html")

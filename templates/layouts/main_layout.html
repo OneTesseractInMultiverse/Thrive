@@ -12,6 +12,7 @@
         <!-- STYLES -->
         <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3" crossorigin="anonymous">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/main.css') }}">
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/thrive.css') }}">
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='lib/rickshaw/rickshaw.min.css') }}">
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='js/modernizr-custom.js') }}">
@@ -443,6 +444,6 @@
 
 
     <!-- Common Script   -->
-    <script src="dist/js/main.js"></script>
+    <script src="{{ url_for('static', filename='js/thrive/main.js') }} "></script>
     </body>
 </html>

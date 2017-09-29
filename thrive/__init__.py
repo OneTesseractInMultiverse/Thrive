@@ -5,6 +5,7 @@ import yaml
 from flask import Flask as FlaskBase, Config as ConfigBase
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
+from flask_login import LoginManager
 
 
 # ------------------------------------------------------------------------------
@@ -62,6 +63,9 @@ class Garnet(FlaskBase):
 __version__ = '1.0.0'
 app = Garnet('Thrive')
 app.config.from_object('config')
+
+login_manager = LoginManager()
+login_manager.init_app(app)
  
 # ------------------------------------------------------------------------------
 # SETUP MONGO DATABASE

@@ -1,0 +1,42 @@
+{% extends "layouts/external_layout.html" %}
+{% block body %}
+
+    <div class="sign-in-wrapper">
+            <div class="sign-container">
+                <div class="text-center">
+                    <h2 class="logo"><img src="imgs/logo-dark.png" width="130px" alt=""/></h2>
+                    <h4>Iniciar sesión en T H R I V E</h4>
+                </div>
+
+                <form class="sign-in-form" role="form" method="post">
+
+                    {% if error%}
+                        <div class="alert alert-danger alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <strong>Error</strong> {{ error }}
+                        </div>
+                    {% endif %}
+
+                    <div class="form-group">
+                        <input name="username" type="text" class="form-control" placeholder="Usuario" required="El usuario es un campo requerido">
+                    </div>
+                    <div class="form-group">
+                        <input name="password" type="password" class="form-control" placeholder="Contraseña" required="La contraseña es un campo requerido">
+                    </div>
+                    <div class="form-group text-center">
+                        <input type="checkbox"> Recordar mis datos
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+                    <div class="text-center help-block">
+                        <a href="forgot-password.html"><small>Forgot password?</small></a>
+                        <p class="text-muted help-block"><small>Do not have an account?</small></p>
+                    </div>
+                    <a class="btn btn-md btn-default btn-block" href="registration.html">Create an account</a>
+                </form>
+                <div class="text-center copyright-txt">
+                    <small>T H R I V E - Copyright © 2017.</small>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

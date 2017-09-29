@@ -41,6 +41,12 @@ class User(Document):
 
     claims = ListField(StringField(max_length=120))
 
+    is_authenticated = True
+
+    is_active = True
+
+    is_anonymous = False
+
     meta = {
         'indexes': [
             'user_id',
@@ -62,12 +68,10 @@ class User(Document):
             :return: True if the authentication was successful and the password is
                      correct
         """
-        proposed = password.encode('utf-8')
-        serialized = self.password.encode('utf-8')
-        if serialized.startswith(b'$7$'):
-            res = verify_scryptsalsa208sha256(serialized, proposed)
-        else:
-            raise ValueError('Unknown serialization format')
+        proposed = password.encode('ascii')
+        hashed = self.password.encode('ascii')
+        print(len(hashed))
+        res = verify_scryptsalsa208sha256(hashed, proposed)
         return res
 
     # --------------------------------------------------------------------------
@@ -82,7 +86,7 @@ class User(Document):
                              for the user.
             :return:         True if operation completed successfully
         """
-        self.password = str(nacl.pwhash.scryptsalsa208sha256_str(password.encode('utf-8')))
+        self.password = nacl.pwhash.scryptsalsa208sha256_str(password.encode('ascii')).decode('ascii')
         return True
 
     # --------------------------------------------------------------------------
@@ -148,6 +152,12 @@ class User(Document):
             return True
         else:
             return False
+
+    # --------------------------------------------------------------------------
+    # METHOD GET_ID
+    # --------------------------------------------------------------------------
+    def get_id(self):
+        return self.user_id
 
 
 # ------------------------------------------------------------------------------

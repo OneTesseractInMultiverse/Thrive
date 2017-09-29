@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="shortcut icon" type="image/png" href="/imgs/favicon.png" /> -->
+
+        <title>THRIVE - Login</title>
+
+        <!-- STYLES -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/thrive.css') }}">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='js/modernizr-custom.js') }}">
+
+    </head>
+    <body>
+
+        {% block body %}
+
+        {% endblock %}
+
+        <!-- ===================================== SCRIPTS =================================== -->
+        <!-- inject:js -->
+        <script src="{{ url_for('static', filename='lib/jquery/dist/jquery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='lib/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='lib/jquery.nicescroll/dist/jquery.nicescroll.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='lib/autosize/dist/autosize.min.js') }}"></script>
+        <!-- endinject -->
+    </body>
+</html>

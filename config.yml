@@ -1,0 +1,37 @@
+COMMON: &common
+  JWT_TOKEN_LOCATION: headers
+  JWT_REFRESH_TOKEN_VALIDITY_DAYS: 90
+  JWT_ACCESS_TOKEN_VALIDITY_HOURS: 2
+    
+DEVELOPMENT: &development
+  <<: *common
+  DEBUG: True
+
+  MONGODB_DB: local
+  MONGODB_HOST: localhost
+  MONGODB_PORT: 27017
+
+  SECRET_KEY: IAeX8aIPyN7xmTpIg
+  
+STAGING: &staging
+  <<: *common
+  DEBUG: True
+
+  MONGODB_DB: aqrpapp
+  MONGODB_HOST: ds052649.mlab.com
+  MONGODB_PORT: 52649
+  MONGODB_USERNAME: aqrp
+  MONGODB_PASSWORD: Wstinol1234.
+
+  SECRET_KEY: shSO0V1fSUFATtmdnzt
+  
+PRODUCTION: &production
+  <<: *common
+
+  MONGODB_DB: aqrpapp
+  MONGODB_HOST: ds052649.mlab.com
+  MONGODB_PORT: 52649
+  MONGODB_USERNAME: aqrp
+  MONGODB_PASSWORD: Wstinol1234.
+
+  SECRET_KEY: BnN01ERfYl3QXo3Slza

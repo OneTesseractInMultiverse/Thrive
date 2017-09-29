@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI Instance to server GarnetREST API
+After=network.target
+
+[Service]
+User=[your_user]
+Group=www-data
+WorkingDirectory=/home/[your_user]/apps/garnet
+Environment="PATH=/home/[your_user]/apps/garnet/bin"
+ExecStart=/home/[your_user]/apps/garnet/bin/uwsgi --ini garnet.ini
+
+[Install]
+WantedBy=multi-user.target

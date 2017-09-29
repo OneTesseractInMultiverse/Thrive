@@ -60,7 +60,7 @@ class Garnet(FlaskBase):
 # SETUP GENERAL APPLICATION
 # ------------------------------------------------------------------------------
 __version__ = '1.0.0'
-app = Garnet('Garnet')
+app = Garnet('Thrive')
 app.config.from_object('config')
  
 # ------------------------------------------------------------------------------
@@ -78,3 +78,4 @@ jwt = JWTManager(app)
 # LOAD ENDPOINTS
 # ------------------------------------------------------------------------------
 from thrive.endpoints import *
+from thrive.controllers import *

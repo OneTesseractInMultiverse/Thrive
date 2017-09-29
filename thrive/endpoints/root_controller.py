@@ -5,7 +5,7 @@ from flask import jsonify, request
 # --------------------------------------------------------------------------
 # GET: /ACCOUNT
 # --------------------------------------------------------------------------
-@app.route('/', methods=['GET'])
+@app.route('/status', methods=['GET'])
 def get_root():
     """
         Gets the requester's IP Address and the User Agent and builds a tiny 

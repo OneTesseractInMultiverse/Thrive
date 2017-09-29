@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="shortcut icon" type="image/png" href="/imgs/favicon.png" /> -->
+        <title>Bower - Bootkit Documentation</title>
+
+        <link rel="stylesheet" href="../assets/plugins/bootstrap.min.css">
+        <link rel="stylesheet" href="../assets/css/main.min.css">
+        <link rel="stylesheet" href="../assets/css/doc.css">
+        <link rel="stylesheet" href="../assets/plugins/github.css">
+		<script src="../assets/plugins/highlight.pack.min.js"></script>
+		<script>
+		    hljs.initHighlightingOnLoad();
+		</script>
+    </head>
+    <body>
+
+        <div class="Doc">
+
+            <!--header -->
+            <header class="Doc-header">
+                <div class="container">
+                    <a href="#" class="">
+                        <span class="logo"><img src="../imgs/logo-light.png" alt=""/></span>
+                    </a>
+                </div>
+            </header>
+            <!--/ header -->
+
+            <!--body -->
+            <div class="container">
+
+                <!--sidebar -->
+                <div class="Doc-sidebar">
+                    <div class="Box niceScroll">
+                        <ul class="nav">
+                            <li>
+                                <h6>Introduction</h6>
+                                <ul class="nav">
+                                    <li><a href="../index.html">Getting Started</a></li>
+                                    <li><a href="sass.html">Sass</a></li>
+                                    <li><a href="gulp.html">Gulp</a></li>
+                                    <li class="active"><a href="bower.html">Bower</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h6>Apps</h6>
+                                <ul class="nav">
+                                    <li><a href="layouts.html">Layouts</a></li>
+                                    <li><a href="mailbox.html">Mailbox</a></li>
+                                    <li><a href="notes.html">Notes</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h6>Charts</h6>
+                                <ul class="nav">
+                                    <li><a href="chart-high.html">High Charts</a></li>
+                                    <li><a href="chart-rickshaw.html">Rickshaw Charts</a></li>
+                                    <li><a href="chart-c3.html">C3 Charts</a></li>
+                                    <li><a href="chart-nvd3.html">NVD3 Charts</a></li>
+                                    <li><a href="chart-flot.html">Flot Charts</a></li>
+                                    <li><a href="chart-morris.html">Morris Charts</a></li>
+                                    <li><a href="chartjs.html">ChartJs</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <h6>UI Elements</h6>
+                                <ul class="nav">
+                                    <!-- <li><a href="general.html">General</a></li> -->
+                                    <!-- <li><a href="buttons.html">Buttons</a></li> -->
+                                    <!-- <li><a href="typography.html">Typography</a></li> -->
+                                    <li><a href="tree.html">Tree</a></li>
+                                    <li><a href="nestables.html">Nestables</a></li>
+                                    <li><a href="sliders.html">Sliders</a></li>
+                                    <!-- <li><a href="tabs-accordions.html">Tabs &amp; Accordions</a></li> -->
+                                </ul>
+                            </li>
+                            <!-- <li><a href="grids.html">Grid Option</a></li> -->
+                            <!-- <li><a href="font-awesome.html">Font Awesome</a></li> -->
+                            <li>
+                                <h6>Components</h6>
+                                <ul class="nav">
+                                    <li><a href="calendar.html">Calendar</a></li>
+                                    <!-- <li><a href="timeline.html">Timeline</a></li> -->
+                                    <!-- <li><a href="panels.html">Panels</a></li> -->
+                                    <li><a href="toastr-notifications.html">Toastr Notifications</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="tables.html">Table</a></li>
+                            <li>
+                                <h6>Extras</h6>
+                                <ul class="nav">
+                                    <!-- <li><a href="profile.html">Profile</a></li> -->
+                                    <li><a href="updates.html">Updates</a></li>
+                                    <li><a href="supports.html">Supports</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!--/ sidebar -->
+
+                <!--content -->
+                <div class="row">
+                    <div class="col-md-9 col-sm-8 col-md-offset-3 col-sm-offset-4">
+                        <div class="Doc-content">
+                            <section>
+                                <h2>Bower Dependency Management</h2>
+                                <hr>
+                                <p><a href="https://bower.io/" target="_blank">Bower</a> is a package manager for the web.</p>
+                                <p>Bower works by fetching and installing <a href="https://bower.io/search/" target="_blank">packages</a> from all over, taking care of hunting, finding, downloading, and saving the stuff you’re looking for. Bower keeps track of these packages in a manifest file, <code>bower.json</code>.</p>
+                                <p>Bower requires <a href="https://nodejs.org/" target="_blank">node</a>, <a href="https://www.npmjs.org" target="_blank">npm</a> and <a href="https://git-scm.com/" target="_blank">git</a>.</p>
+                                <p>Run the following commands</p>
+                                <ul>
+                                    <li>Install <code>bower</code> globally by running the command <code>npm install -g bower</code></li>
+                                    <li>Run the command <code>bower install</code></li>
+                                </ul>
+                                <p><br>Bower installs packages to bower_components/</p>
+                            </section>
+                            <section>
+                                <h3>Bower Components</h3>
+                                <p>In bower_components folder, you can see the list of components that used in our templete.</p>
+                                <br>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-condensed table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Name
+                                                </th>
+                                                <th>
+                                                    Description
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>autosize</td>
+                                                <td>Autosize is a small, stand-alone script to automatically adjust textarea height to fit text.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>blueimp-canvas-to-blob</td>
+                                                <td>Canvas to Blob is a polyfill for the standard JavaScript canvas.toBlob method. It can be used to create Blob objects from an HTML canvas element.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>blueimp-load-image</td>
+                                                <td>JavaScript Load Image is a library to load images provided as File or Blob objects or via URL. It returns an optionally scaled and/or cropped HTML img or canvas element. It also provides a method to parse image meta data to extract Exif tags and thumbnails and to restore the complete image header after resizing.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>bootstrap</td>
+                                                <td>The most popular front-end framework for developing responsive, mobile first projects on the web.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>bootstrap-colorpicker</td>
+                                                <td>Fancy and customizable colorpicker plugin for Twitter Bootstrap.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>bootstrap-datepicker</td>
+                                                <td>A datepicker for Bootstrap forked from Stefan Petre's (of eyecon.ro), improvements by eternicode.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>bootstrap-daterangepicker</td>
+                                                <td>Date range picker component for Bootstrap.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>bootstrap-timepicker</td>
+                                                <td>Easily select a time for a text input using your mouse or keyboards arrow keys.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>bootstrap-touchspin</td>
+                                                <td>A mobile and touch friendly input spinner component for Bootstrap 3.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>c3</td>
+                                                <td>D3-based reusable chart library</td>
+                                            </tr>
+                                            <tr>
+                                                <td>chart.js</td>
+                                                <td>Simple HTML5 charts using the canvas element.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>d3</td>
+                                                <td>D3.js is a JavaScript library for manipulating documents based on data. D3 helps you bring data to life using HTML, SVG, and CSS.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>dropzone</td>
+                                                <td>DropzoneJS is an open source library that provides drag’n’drop file uploads with image previews.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Flot</td>
+                                                <td>Flot is a pure JavaScript plotting library for jQuery, with a focus on simple usage, attractive looks and interactive features.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>fontawesome</td>
+                                                <td>The iconic font and CSS toolkit</td>
+                                            </tr>
+                                            <tr>
+                                                <td>fullcalendar</td>
+                                                <td>A JavaScript event calendar. Customizable and open source. </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Gallery</td>
+                                                <td>blueimp Gallery is a touch-enabled, responsive and customizable image and video gallery, carousel and lightbox, optimized for both mobile and desktop web browsers. It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality, fullscreen support and on-demand content loading and can be extended to display additional content types.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>highcharts</td>
+                                                <td>JavaScript charting framework</td>
+                                            </tr>
+                                            <tr>
+                                                <td>highlightjs</td>
+                                                <td>Syntax highlighting for the Web</td>
+                                            </tr>
+                                            <tr>
+                                                <td>ion-rangeslider</td>
+                                                <td>Cool, comfortable and easily customizable range slider with many options and skin support</td>
+                                            </tr>
+                                            <tr>
+                                                <td>jasny-bootstrap</td>
+                                                <td>Additional features and components for Bootstrap</td>
+                                            </tr>
+                                            <tr>
+                                                <td>jquery</td>
+                                                <td>jQuery is a fast, small, and feature-rich JavaScript library.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>jquery-knob</td>
+                                                <td>Nice, downward compatible, touchable, jQuery dial</td>
+                                            </tr>
+                                            <tr>
+                                                <td>jquery-ui</td>
+                                                <td>A curated set of user interface interactions, effects, widgets, and themes built on top of the jQuery JavaScript Library.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>jquery-validation</td>
+                                                <td>jQuery Validation Plugin. Client-side form validation made easy.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>jquery.nicescroll</td>
+                                                <td>nicescroll plugin for jquery - scrollbars like iphone/ipad.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>jquery.steps</td>
+                                                <td>An all-in-one wizard plugin that is extremely flexible, compact and feature-rich.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>jquery.tagsinput</td>
+                                                <td>Magically convert a simple text input into a cool tag list with this jQuery plugin.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>moment</td>
+                                                <td>Parse, validate, manipulate, and display dates in JavaScript.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>morris.js</td>
+                                                <td>Pretty time-series line graphs.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nestable</td>
+                                                <td>Drag &amp; drop hierarchical list with mouse and touch compatibility (jQuery plugin).</td>
+                                            </tr>
+                                            <tr>
+                                                <td>nvd3</td>
+                                                <td>A reusable charting library written in d3.js</td>
+                                            </tr>
+                                            <tr>
+                                                <td>raphael</td>
+                                                <td>JavaScript Vector Library.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>rickshaw</td>
+                                                <td>JavaScript toolkit for creating interactive real-time graphs.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>select2</td>
+                                                <td>Select2 is a jQuery based replacement for select boxes. It supports searching, remote data sets, and infinite scrolling of results.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>store-js</td>
+                                                <td>localStorage wrapper for all browsers without using cookies or flash. Uses localStorage, globalStorage, and userData behavior under the hood </td>
+                                            </tr>
+                                            <tr>
+                                                <td>summernote</td>
+                                                <td>Super simple WYSIWYG editor.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>switchery</td>
+                                                <td>Create iOS 7 styled switches from default input checkboxes</td>
+                                            </tr>
+                                            <tr>
+                                                <td>toastr</td>
+                                                <td>Simple javascript toast notifications</td>
+                                            </tr>
+                                            <tr>
+                                                <td>transitionize</td>
+                                                <td>Create CSS3 transitions dynamically</td>
+                                            </tr>
+                                        <tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                <!--/ content -->
+
+            </div>
+            <!--/ body -->
+
+        </div>
+
+        <script src="../assets/plugins/jquery.min.js"></script>
+        <script>
+			$(document).ready(function() {
+		      $('pre code').each(function(){
+		        var text=$(this).html().replace(/</g,'&lt;');
+		        var text=text.replace(/>/g,'&gt;');
+		        $(this).html(text);
+		      });
+		    });
+		</script>
+        <script src="../assets/plugins/bootstrap.min.js"></script>
+        <script src="../assets/plugins/jquery.nicescroll.min.js"></script>
+        <script src="../assets/js/doc.js"></script>
+
+    </body>
+</html>

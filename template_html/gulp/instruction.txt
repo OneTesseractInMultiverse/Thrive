@@ -1,0 +1,10 @@
+
+Gulp file instruction:
+———————————————————————
+
+For running or using gulp task you need “gulpfile.js” and “package.json” files. 
+
+Copy this two files and paste into /demo folder and then run gulp.
+
+
+N.B: In our /demo folder already exists this two files.

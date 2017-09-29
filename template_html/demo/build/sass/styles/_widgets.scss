@@ -1,0 +1,186 @@
+/*--------------------------------------------
+Widgets
+----------------------------------------------*/
+
+.w-states {
+  .btn {
+    margin-bottom: 10px;
+    border-radius: 0;
+    padding:20px 10px 26px 10px;
+
+    span {
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .value {
+      font-size: 40px;
+      line-height: normal;
+    }
+
+    .info {
+      font-size: 12px;
+    }
+  }
+}
+
+/*--------------------------------------------
+high charts
+----------------------------------------------*/
+
+.highcharts-credits {
+  display: none;
+}
+
+.highcharts-menu {
+  box-shadow: none !important;
+  border: 1px solid #ddd !important;
+
+  hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .highcharts-menu-item {
+    &:hover {
+      background: $brand-info !important;
+    }
+  }
+}
+
+
+.jqstooltip {
+  width: auto !important;
+  height: auto !important;
+}
+
+
+/*--------------------------------------------
+spark line
+----------------------------------------------*/
+
+.chart-wrap {
+  display: inline-block;
+  margin: 21px 20px;
+
+  div {
+    margin-top: 10px;
+  }
+
+  small {
+    margin: 5px 0;
+    display: block;
+  }
+}
+
+
+/*--------------------------------------------
+table
+----------------------------------------------*/
+
+
+.general-table {
+  margin-bottom: 12px;
+}
+
+table.dataTable {
+  border: 1px solid #ddd;
+}
+
+table.dataTable.no-footer,
+button.DTTT_button, div.DTTT_button, a.DTTT_button,
+button.ColVis_Button{
+  border-color: #ddd !important;
+}
+
+table.dataTable thead th, table.dataTable thead td{
+  border-bottom: none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  padding: 0px !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  border-color: transparent !important;
+  background: transparent !important;
+}
+
+button.DTTT_button, div.DTTT_button, a.DTTT_button,
+button.ColVis_Button {
+  box-shadow: none !important;
+  background: #f3f3f3 !important;
+}
+
+button.DTTT_button:hover:not(.DTTT_disabled),
+div.DTTT_button:hover:not(.DTTT_disabled),
+a.DTTT_button:hover:not(.DTTT_disabled),
+.ColVis_Button:hover{
+  background: #ddd !important;
+}
+
+.tbl-head {
+  float: right;
+  margin-left: 10px;
+}
+
+.dataTables_wrapper .dataTables_info {
+  padding-top: 2.5em !important;
+}
+
+ul.ColVis_collection, ul.ColVis_collection li {
+  box-shadow: none !important;
+  border-radius: 2px !important;
+  background: $brand-white !important;
+  border-color: #ddd !important;
+}
+
+ul.ColVis_collection li:hover {
+  background: #f3f3f3 !important;
+}
+
+/*--------------------------------------------
+nestables
+----------------------------------------------*/
+
+.dd3-content {
+  background: $brand-white;
+  border-color: #e5e9ec;
+  color: #6F7B8A;
+}
+
+.dd3-handle {
+  background: #f3f3f3;
+  border-color: #e5e9ec;
+  &:before {
+    color: inherit;
+  }
+  &:hover {
+    background: #e5e9ec;
+  }
+}
+
+
+/*--------------------------------------------
+short states
+----------------------------------------------*/
+
+.short-states {
+  h4 {
+    font-weight: bold;
+  }
+
+  .label {
+    border-radius:3px 0 0 3px !important;
+    position: relative;
+    right: -1px;
+    padding: 6px 12px;
+  }
+}
+
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1413px) {
+  .chart-wrap {
+    margin: 21px 5px !important;
+  }
+}

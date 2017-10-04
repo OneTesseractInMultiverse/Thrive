@@ -24,6 +24,8 @@ def get_courses(level):
 @app.route('/course/<course_id>', methods=['GET'])
 @login_required
 def get_course(course_id):
+    """
+    """
 
     return jsonify({"msg": "To be implemented"})
     

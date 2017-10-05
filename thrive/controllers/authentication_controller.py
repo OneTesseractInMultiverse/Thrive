@@ -33,7 +33,7 @@ def post_account_login():
     if username is None:
         return render_template("authentication/login.html", error="Debe proporcionar un usuario")
     if password is None:
-        return render_template("authentication/login.html", error="Debe proporcionar una contraseña")
+        return render_template("authentication/login.html", error="Debe proporcionar una contrasena")
 
     app.logger.info('Credentials OK, now authenticating...')
 
@@ -45,7 +45,7 @@ def post_account_login():
         app.logger.info('Credentials are correct...')
         session['logged_in'] = True
         login_user(user)
-        return redirect(url_for('home'))
+        return redirect(url_for('get_dashboard_root'))
     else:
         app.logger.info('Credentials are not correct...')
         error = "Wrong username or password!"

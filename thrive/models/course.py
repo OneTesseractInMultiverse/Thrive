@@ -33,3 +33,5 @@ class Course:
     
     level = StringField(max_length=120, required=True)
 
+    description = StringField(max_length=512, required=True)
+

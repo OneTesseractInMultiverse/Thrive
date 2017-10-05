@@ -6,6 +6,7 @@ from flask import Flask as FlaskBase, Config as ConfigBase
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
 from flask_login import LoginManager
+from py2neo import Graph
 
 
 # ------------------------------------------------------------------------------
@@ -72,6 +73,15 @@ login_manager.init_app(app)
 # ------------------------------------------------------------------------------   
 db = MongoEngine(app)
 
+# ------------------------------------------------------------------------------
+# SETUP MNEO4J DATABASE
+# ------------------------------------------------------------------------------
+
+url = os.environ.get('GRAPHENEDB_URL', 'http://localhost:7474')
+neo4j_username = os.environ.get('NEO4J_USERNAME')
+neo4j_password = os.environ.get('NEO4J_PASSWORD')
+
+graph = Graph(url + '/db/data/', username=neo4j_username, password=neo4j_password)
 # ------------------------------------------------------------------------------
 # SETUP JWT
 # ------------------------------------------------------------------------------

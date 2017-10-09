@@ -77,11 +77,12 @@ db = MongoEngine(app)
 # SETUP MNEO4J DATABASE
 # ------------------------------------------------------------------------------
 
-url = os.environ.get('GRAPHENEDB_URL', 'http://localhost:7474')
+url = os.environ.get('GRAPHENEDB_URL', 'http://hobby-kckcaodehcobgbkeefncldpl.dbs.graphenedb.com:24789')
 neo4j_username = os.environ.get('NEO4J_USERNAME')
 neo4j_password = os.environ.get('NEO4J_PASSWORD')
 
-graph = Graph(url + '/db/data/', username=neo4j_username, password=neo4j_password)
+graph = Graph(url + '/db/data/', username='thrive', password='b.kceYLqvbuDjK.C7JNh99Ea4RHXoFV')
+
 # ------------------------------------------------------------------------------
 # SETUP JWT
 # ------------------------------------------------------------------------------

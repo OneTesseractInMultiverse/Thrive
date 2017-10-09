@@ -15,8 +15,18 @@ JWT_ACCESS_TOKEN_VALIDITY_HOURS = datetime.timedelta(hours=2)
 # MONGO DATABASE CONFIGURATION
 # ----------------------------------------------------------------
 # MongoDB configuration parameters
+
 MONGODB_DB = 'thrive-piedad'
 MONGODB_HOST = 'ds159344.mlab.com'
 MONGODB_PORT = 59344
 MONGODB_USERNAME = 'piedad'
 MONGODB_PASSWORD = 'Wstinol123.'
+
+
+# ----------------------------------------------------------------
+# NEO4J DATABASE CONFIGURATION
+# ----------------------------------------------------------------
+NEO4J_USERNAME = 'username'
+NEO4J_PASSWORD = 'change_me'
+GRAPHENEDB_URL = 'http://localhost:7474'
+

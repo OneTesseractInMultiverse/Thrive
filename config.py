@@ -15,6 +15,8 @@ JWT_ACCESS_TOKEN_VALIDITY_HOURS = datetime.timedelta(hours=2)
 # MONGO DATABASE CONFIGURATION
 # ----------------------------------------------------------------
 # MongoDB configuration parameters
-MONGODB_DB = 'test'
-MONGODB_HOST = 'localhost'
-MONGODB_PORT = 27017
+MONGODB_DB = 'thrive-piedad'
+MONGODB_HOST = 'ds159344.mlab.com'
+MONGODB_PORT = 59344
+MONGODB_USERNAME = 'piedad'
+MONGODB_PASSWORD = 'Wstinol123.'

@@ -6,7 +6,7 @@ from mongoengine import *
 from werkzeug.security import safe_str_cmp
 from nacl.pwhash import verify_scryptsalsa208sha256
 
-from thrive import app
+from thrive import app, login_manager
 
 
 # ------------------------------------------------------------------------------
@@ -161,6 +161,7 @@ class User(Document):
 # ------------------------------------------------------------------------------
 # GET USER BY ID
 # ------------------------------------------------------------------------------
+@login_manager.user_loader
 def get_user_by_id(user_id):
     """
         Tries to find a given instance of user by using its username. If the user

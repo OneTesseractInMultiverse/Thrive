@@ -10,5 +10,11 @@ class Experiment:
             print("key: " + key)
         return "alguna vara"
 
+    def get(self):
+        for key, value in self.__dict__.items():
+            print('key: ' + key + ' value: ' + value)
+
+
 experimento = Experiment(nombre="Sor", apellido="Raimunda")
 print(experimento)
+experimento.get()

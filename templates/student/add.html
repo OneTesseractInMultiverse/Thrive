@@ -1,0 +1,88 @@
+
+{% extends "layouts/main_layout.html" %}
+{% block body %}
+
+    <div class="ui-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <header class="panel-heading">
+                        <h2>Registrar Estudiante</h2>
+                        <span class="tools pull-right">
+                            <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
+                        </span>
+                    </header>
+                    <div class="panel-body">
+                        <!-- FORM BEGINS -->
+                        <form class="form-horizontal form-variance" role="form" method="post">
+
+                            <div class="form-group">
+                                <label for="personal-id" class="col-sm-3 control-label">Número de Identificación</label>
+                                <div class="col-sm-6">
+                                    <input name="personal-id" class="form-control" id="personal-id" placeholder="Cédula Nacional/DIMEX" type="text" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="col-sm-3 control-label">Nombre</label>
+                                <div class="col-sm-6">
+                                    <input name="name" class="form-control" id="name" placeholder="Nombre" type="text" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="last-name" class="col-sm-3 control-label">Apellido</label>
+                                <div class="col-sm-6">
+                                    <input name="last-name" class="form-control" id="last-name" placeholder="Apellido" type="text" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="second-last-name" class="col-sm-3 control-label">Segundo Apellido</label>
+                                <div class="col-sm-6">
+                                    <input name="second-last-name" class="form-control" id="second-last-name" placeholder="Segundo Apellido" type="text" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label col-lg-3" >Fecha de Nacimiento</label>
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <input name="birth-day" class="form-control" placeholder="Día" type="number" step="1" min="1" max="31" required>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <select name="birth-month" class="form-control" required>
+                                                <option>Seleccionar...</option>
+                                                <option value="1">Enero</option>
+                                                <option value="2">Febrero</option>
+                                                <option value="3">Marzo</option>
+                                                <option value="4">Abril</option>
+                                                <option value="5">Mayo</option>
+                                                <option value="6">Junio</option>
+                                                <option value="7">Julio</option>
+                                                <option value="8">Agosto</option>
+                                                <option value="9">Setiembre</option>
+                                                <option value="10">Octubre</option>
+                                                <option value="11">Noviembre</option>
+                                                <option value="12">Diciembre</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <input name="birth-year" class="form-control" placeholder="Año" type="number" step="1" min="1900" max="2100" required>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        </form>
+                        <!-- FORM ENDS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

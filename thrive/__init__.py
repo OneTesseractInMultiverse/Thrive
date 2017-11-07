@@ -86,7 +86,6 @@ authenticate(
     neo4j_username,
     neo4j_password
 )
-
 graph = Graph(
     'http://' + url,
     bolt=False

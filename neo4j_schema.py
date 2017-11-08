@@ -47,7 +47,7 @@ class User(GraphObject):
     is_anonymous = False
     
     # Relations ----------------------------------------------------------------
-    groups = RelatedTo("Group", "MEMBER_OF")
+    groups = RelatedTo("Group", "IS_MEMBER_OF")
     #courses = RelatedTo("COURSE", "TEACHES")
     
     # --------------------------------------------------------------------------
@@ -58,9 +58,13 @@ class User(GraphObject):
         """
         for key, value in kwargs.items():
                 setattr(self, key, value)
-                
+        
+    # --------------------------------------------------------------------------
+    # METHOD ADD TO GROUP
+    # --------------------------------------------------------------------------        
     def add_to_group(self, group):
-        self.groups.add(self)
+        self.groups.add(group)
+        
     
     # --------------------------------------------------------------------------
     # METHOD LT
@@ -167,46 +171,13 @@ class Group(GraphObject):
     def update(self, dest_graph):
         dest_graph.push(self)
         
-# ==============================================================================
-# FUNCTIONS
-# ==============================================================================
-# ------------------------------------------------------------------------------
-# GET USER BY ID
-# ------------------------------------------------------------------------------
-def get_user_by_id(user_id):
-    """
-        Tries to find a given instance of user by using its username. If the user
-        exists and was found, an instance of user is returned, else, None is
-        returned meaning that the system was unable to find a user with the given
-        username.
-    """
-    return User.select(graph, user_id)
-    
-def get_user_by_username(usrname):
-    """
-        Tries to find a given instance of user by using its username. If the user
-        exists and was found, an instance of user is returned, else, None is
-        returned meaning that the system was unable to find a user with the given
-        username.
-    """
-    try:
-        return User.select(graph).where("_.username =~ '" + usrname + "'").first()
-    except Exception as ex:
-        return None
-  
-        
-def get_group_by_name(usrname):
-    """
-        Tries to find a given instance of user by using its username. If the user
-        exists and was found, an instance of user is returned, else, None is
-        returned meaning that the system was unable to find a user with the given
-        username.
-    """
-    try:
-        return User.select(graph).where("_.username =~ '" + usrname + "'").first()
-    except Exception as ex:
-        print(ex)
-        return None
+
+
+
+
+# ##############################################################################
+# CRYPTO TESTS
+# ##############################################################################
 
     
 """    
@@ -244,15 +215,18 @@ user.save_to(graph)
 print('Saved!')
 """
 usr = list(User.select(graph).where("_.name =~ 'J.*'"))[0]
-grp = list(Group.select(graph).where("_.name =~ 'Teachers'"))[0]
+grp = list(Group.select(graph).where("_.name =~ 'Staff'"))[0]
 
-print(grp.name)
+grp.members.add(usr)
+graph.push(grp)
+
+#print(grp.name)
 
 #grp.members.add(usr)
 #graph.push(grp)
 
-usr.groups.add(grp)
-graph.push(usr)
+#usr.groups.add(grp)
+#graph.push(usr)
 
 """
 group = Group(

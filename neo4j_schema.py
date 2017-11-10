@@ -4,6 +4,10 @@ from nacl.pwhash import verify_scryptsalsa208sha256, scryptsalsa208sha256_str
 from datetime import date
 import uuid
 
+"""
+    https://stackoverflow.com/questions/43131325/py2neo-bolt-protocolerror-server-closed-connection#_=_
+"""
+
 # Credentials
 url = 'graph.subvertic.com:7474'
 neo4j_username = 'neo4j'
@@ -19,7 +23,8 @@ authenticate(
 # Connect to graph
 graph = Graph(
     'http://' + url,
-    bolt=False
+    bolt=False, 
+    secure=False
 )
 
 # ==============================================================================
@@ -179,6 +184,44 @@ class Group(GraphObject):
 # CRYPTO TESTS
 # ##############################################################################
 
+
+   
+   
+"""  
+
+uid = str(uuid.uuid4())   
+
+print('Creating group...')
+group = Group(
+        group_id = str(uuid.uuid4()),
+        name = 'Directors',
+        description = 'Directores'
+    )
+    
+group.save_to(graph)
+
+--------------------------------------------------------------------------------
+
+print('Creating user...')      
+user = User(
+        user_id = uid,
+        name = "John",
+        last_name = "Doe", 
+        username = "john.doe@thrive-edu.org", 
+    )
+    
+print('User createed...')
+user.update_password('Wstinol123.')
+
+graph.merge(user)
+graph.merge(group)
+
+group.members.add(user)
+graph.push(group)
+
+user.groups.add(group)
+graph.push(user)
+"""
     
 """    
 uid = str(uuid.uuid4())   
@@ -214,11 +257,11 @@ user.save_to(graph)
 
 print('Saved!')
 """
-usr = list(User.select(graph).where("_.name =~ 'J.*'"))[0]
-grp = list(Group.select(graph).where("_.name =~ 'Staff'"))[0]
+#usr = list(User.select(graph).where("_.name =~ 'J.*'"))[0]
+#grp = list(Group.select(graph).where("_.name =~ 'Staff'"))[0]
 
-grp.members.add(usr)
-graph.push(grp)
+#grp.members.add(usr)
+#graph.push(grp)
 
 #print(grp.name)
 
@@ -241,3 +284,16 @@ graph.merge(group)
 usr.groups.add(group)
 graph.merge(usr)
 """
+
+
+usr = list(User.select(graph).where("_.name =~ 'J.*'"))[0]
+grp = list(Group.select(graph).where("_.name =~ 'Directors'"))[0]
+
+usr.groups.add(grp)
+graph.push(usr)
+
+usr = list(User.select(graph).where("_.name =~ 'J.*'"))[0]
+grp = list(Group.select(graph).where("_.name =~ 'Directors'"))[0]
+
+grp.members.add(usr)
+graph.push(grp)

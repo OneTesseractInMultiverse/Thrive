@@ -1,6 +1,6 @@
 from thrive import app
 from flask import jsonify, request
-from thrive.models.user import build_account, get_user_by_username
+from thrive.extensions.security.iam import create_user, get_user_by_username
 from mongoengine import ValidationError, NotUniqueError
 import sys
 
@@ -26,7 +26,7 @@ def post_account():
             "msg": "The provided username is not valid"
         }), 400
 
-    user = build_account(account_data=account_data)
+    user = create_user(account_data=account_data)
 
     # Now we verify that all required values are present and build a new instance
     # of user. If the instance is None, then one of the validations failed so
@@ -35,8 +35,6 @@ def post_account():
         # We try to create an instance
         try:
             # We try to persist the user account in Mongo Database
-
-            print(user.to_dict())
             user.save()
 
             return jsonify({

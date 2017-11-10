@@ -1,6 +1,6 @@
 from thrive import app, jwt
 from flask import jsonify, request
-from thrive.models.user import get_user_by_username, get_user_by_id, User
+from thrive.extensions.security.iam import get_user_by_username, get_user_by_id
 from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, \
     jwt_refresh_token_required, get_jwt_identity
 import datetime
@@ -20,9 +20,12 @@ def load_claims(identity):
                  given identity
     """
     user = get_user_by_id(identity)
+    claims = []
+    for group in user.groups.all():
+        claims.append(group.group_id)
     return {
         "is_application_user": True,
-        "claims": user.claims
+        "member_of": claims
     }
 
 

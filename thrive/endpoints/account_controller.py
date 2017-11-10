@@ -1,7 +1,6 @@
 from thrive import app
 from flask import jsonify, request
 from thrive.extensions.security.iam import create_user, get_user_by_username
-from mongoengine import ValidationError, NotUniqueError
 import sys
 
 

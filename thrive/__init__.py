@@ -7,6 +7,7 @@ from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
 from flask_login import LoginManager
 from py2neo import Graph, authenticate
+from neomodel import config as neo4j
 
 
 # ------------------------------------------------------------------------------
@@ -77,19 +78,9 @@ db = MongoEngine(app)
 # SETUP MNEO4J DATABASE
 # ------------------------------------------------------------------------------
 
-url = app.config['GRAPHENEDB_URL']
 neo4j_username = app.config['NEO4J_USERNAME']
 neo4j_password = app.config['NEO4J_PASSWORD']
-
-authenticate(
-    url,
-    neo4j_username,
-    neo4j_password
-)
-graph = Graph(
-    'http://' + url,
-    bolt=False
-)
+neo4j.DATABASE_URL = app.config['DATABASE_URL']
 # ------------------------------------------------------------------------------
 # SETUP JWT
 # ------------------------------------------------------------------------------

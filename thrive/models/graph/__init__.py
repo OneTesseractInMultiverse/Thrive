@@ -1,7 +1,8 @@
 from neomodel import (
     config, 
     StructuredNode, 
-    StringProperty, 
+    StringProperty,
+    BooleanProperty,
     IntegerProperty,
     UniqueIdProperty, 
     RelationshipTo, 
@@ -33,9 +34,30 @@ class User(StructuredNode):
     email = StringProperty(unique_index=True, required=True)
     username = StringProperty(unique_index=True, required=True)
     password = StringProperty(required=True)
+    is_active = BooleanProperty(required=True)
+    
+    is_anonymous = False
+    is_authenticated = True
     
     # RELATIONS
     groups = RelationshipTo('Group', 'IS_MEMBER_OF')
+
+    # --------------------------------------------------------------------------
+    # DGET ID
+    # --------------------------------------------------------------------------
+    def get_id(self):
+        return self.user_id
+   
+    # --------------------------------------------------------------------------
+    # DICTIONARY PROPERTY
+    # --------------------------------------------------------------------------
+    @property
+    def dictionary(self):
+        output = {}
+        for prop in self.__dict__.keys():
+            if prop is not 'password':
+                output[prop] = getattr(prop)
+        return output
                 
     # --------------------------------------------------------------------------
     # METHOD AUTHENTICATE

@@ -10,7 +10,6 @@ from neomodel import (
 
 from nacl.pwhash import verify_scryptsalsa208sha256, scryptsalsa208sha256_str
 from datetime import date
-
 import uuid
 
 

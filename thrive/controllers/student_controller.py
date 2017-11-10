@@ -1,3 +1,4 @@
+"""
 from thrive import app
 from thrive.models.graph import Student
 from flask_login import login_user, login_required
@@ -43,3 +44,4 @@ def post_add_student():
         print(message)
 
     return jsonify({"msg": "Shit got real..."})
+"""

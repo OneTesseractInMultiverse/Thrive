@@ -1,5 +1,5 @@
 import uuid
-from thrive import graph, login_manager, app
+from thrive import login_manager, app
 from thrive.models.graph import User, Group
 
 """
@@ -31,7 +31,7 @@ def get_user_by_username(usrname):
         returned meaning that the system was unable to find a user with the given
         username.
     """
-    return User.nodes.get_or_none(username=username)
+    return User.nodes.get_or_none(username=usrname)
     
     
 # ------------------------------------------------------------------------------
@@ -75,7 +75,8 @@ def create_user(account_data):
             name=name,
             last_name=last_name,
             username=username,
-            email=email
+            email=email,
+            is_active = True
         )
 
         # We set the password by calling the update function that handles

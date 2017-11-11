@@ -1,9 +1,9 @@
-from thrive import app, jwt
 from flask import jsonify, request
-from thrive.extensions.security.iam import get_user_by_username, get_user_by_id
-from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, \
+from flask_jwt_extended import create_access_token, create_refresh_token, \
     jwt_refresh_token_required, get_jwt_identity
-import datetime
+
+from thrive import app, jwt
+from thrive.security.iam import get_user_by_username, get_user_by_id
 
 
 # --------------------------------------------------------------------------

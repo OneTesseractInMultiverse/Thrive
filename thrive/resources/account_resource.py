@@ -1,7 +1,8 @@
-from thrive import app
-from flask import jsonify, request
-from thrive.extensions.security.iam import create_user, get_user_by_username
 import sys
+
+from flask import jsonify, request
+from thrive import app
+from thrive.security.iam import create_user, get_user_by_username
 
 
 # --------------------------------------------------------------------------
@@ -20,7 +21,7 @@ def post_account():
     # parse the parameters
     account_data = request.get_json()
 
-    if 'username' in account_data and get_user_by_username(usrname=account_data['username']) is not None:
+    if 'username' in account_data and get_user_by_username(user_name=account_data['username']) is not None:
         return jsonify({
             "msg": "The provided username is not valid"
         }), 400

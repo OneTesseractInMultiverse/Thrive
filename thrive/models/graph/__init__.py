@@ -4,13 +4,14 @@ from neomodel import (
     StringProperty,
     BooleanProperty,
     IntegerProperty,
+    DateProperty,
     UniqueIdProperty, 
     RelationshipTo, 
     RelationshipFrom
 )
 
 from nacl.pwhash import verify_scryptsalsa208sha256, scryptsalsa208sha256_str
-from datetime import date
+from datetime import date, datetime
 import uuid
 
 
@@ -55,7 +56,7 @@ class User(StructuredNode):
     def dictionary(self):
         output = {}
         for prop in self.__dict__.keys():
-            if prop is not 'password':
+            if prop is not 'password' and not prop.startswith('__'):
                 output[prop] = getattr(prop)
         return output
                 
@@ -92,7 +93,8 @@ class User(StructuredNode):
         """
         self.password = scryptsalsa208sha256_str(password.encode('utf-8')).decode('utf-8')
         return True
-  
+
+
 # ------------------------------------------------------------------------------
 # CLASS GROUP
 # ------------------------------------------------------------------------------       
@@ -105,12 +107,57 @@ class Group(StructuredNode):
     
     # RELATIONS
     members = RelationshipTo('User', 'HAS')
-    
         
     
 # ##############################################################################
 # BUSINESS OBJECTS
 # ##############################################################################
+# (year, month, day)
+class Student(StructuredNode):
+
+    student_id = StringProperty(unique_index=True, required=True)
+    personal_id = StringProperty(unique_index=True, required=True)
+    date_of_birth = DateProperty(required=True)
+    name = StringProperty()
+    last_name = StringProperty(required=True)
+    second_last_name = StringProperty(required=True)
+
+    # --------------------------------------------------------------------------
+    # DICTIONARY PROPERTY
+    # --------------------------------------------------------------------------
+    @property
+    def dictionary(self):
+        """
+            Gets a dictionary representation of the current instance of Student
+            :return: 
+        """
+        output = {}
+        for prop in self.__dict__.keys():
+            if not prop.startswith('__'):
+                output[prop] = getattr(prop)
+        return output
+
+    # --------------------------------------------------------------------------
+    # SET DATE OF BIRTH
+    # --------------------------------------------------------------------------
+    def set_date_of_birth(self, day, month, year):
+        """
+            Sets the date object in Student class
+            
+            :param day: The day
+            :param month: The month
+            :param year: The year
+            :return: True if well formatted and valid date provided. False if not.
+            
+        """
+        try:
+            self.date_of_birth = date(year, month, day)
+            return True
+        except Exception as ex:
+            # TODO good exception handling!!!
+            print(ex)
+            return False
+
 
 # ##############################################################################
 # TRANSACTIONAL OBJECTS

@@ -90,5 +90,5 @@ jwt = JWTManager(app)
 # ------------------------------------------------------------------------------
 # LOAD ENDPOINTS
 # ------------------------------------------------------------------------------
-from thrive.endpoints import *
+from thrive.resources import *
 from thrive.controllers import *

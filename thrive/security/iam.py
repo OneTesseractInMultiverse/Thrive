@@ -1,4 +1,7 @@
 import uuid
+from functools import wraps
+from flask import jsonify, render_template
+from flask_login import current_user
 from thrive import login_manager, app
 from thrive.models.graph import User, Group
 
@@ -6,6 +9,7 @@ from thrive.models.graph import User, Group
     This module contains helper functions that perform operations related to 
     manipulation and retrieval of Identity and Access Management objects. 
 """
+
 
 # ------------------------------------------------------------------------------
 # GET USER BY ID
@@ -20,18 +24,18 @@ def get_user_by_id(user_id):
     """
     return User.nodes.get_or_none(user_id=user_id)
         
- 
+
 # ------------------------------------------------------------------------------
 # GET USER BY USERNAME
 # ------------------------------------------------------------------------------
-def get_user_by_username(usrname):
+def get_user_by_username(user_name):
     """
         Tries to find a given instance of user by using its username. If the user
         exists and was found, an instance of user is returned, else, None is
         returned meaning that the system was unable to find a user with the given
         username.
     """
-    return User.nodes.get_or_none(username=usrname)
+    return User.nodes.get_or_none(username=user_name)
     
     
 # ------------------------------------------------------------------------------
@@ -91,6 +95,26 @@ def create_user(account_data):
         app.logger.error('An error building account occured: \n ' + str(ex))
         return None
 
+
+# ------------------------------------------------------------------------------
+# GET USER GROUPS
+# ------------------------------------------------------------------------------
+def get_user_groups(user_id):
+    """
+        Given a user id, gets the groups that the user belongs to. 
+        
+        :param user_id: The id of the user. 
+        :return: A list of group names in uppercase. Empty list if user does
+                 not belong to any group. 
+    """
+    user = get_user_by_id(user_id=user_id)
+    groups = []
+    if user is not None:
+        for group in user.groups.all():
+            groups.append(group.name.upper())
+    return groups
+
+
 # ------------------------------------------------------------------------------
 # CREATE GROUP
 # ------------------------------------------------------------------------------        
@@ -104,11 +128,12 @@ def create_group(group_data):
             return None
         group = Group(
                 group_id=str(uuid.uuid4()),
-                name=group_data['name'],
+                name=group_data['name'].upper(),
                 description=group_data['description']
             )
         return group
-        
+
+
 # ------------------------------------------------------------------------------
 # ADD USERT TO GROUP
 # ------------------------------------------------------------------------------
@@ -138,3 +163,25 @@ def add_user_to_group(caller_id, group_name, user):
         # TODO - Do good exception handling here
         app.logger.error("Error adding user to group: \n " + str(ex))
         return False
+""
+
+
+# ------------------------------------------------------------------------------
+# REQUIRES ROLES
+# ------------------------------------------------------------------------------
+def requires_roles(*roles):
+    """
+        TODO
+        :param roles: 
+        :return: 
+    """
+    def wrapper(f):
+        @wraps(f)
+        def wrapped(*args, **kwargs):
+            if get_user_groups(current_user.user_id) not in roles:
+                return render_template("error/401.html")
+            return f(*args, **kwargs)
+        return wrapped
+    return wrapper
+
+

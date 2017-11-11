@@ -33,7 +33,7 @@
                     <span class="logo"><img src="imgs/logo-dark.png" alt=""/></span>
                     <span class="logo-compact"><img src="imgs/logo-icon-dark.png" alt=""/></span>
                     -->
-                    <span class="logo">T H R I V E | Learn</span>
+                    <span class="logo">T H R I V E | L E A R N</span>
                 </a>
                 <!--logo end-->
             </div>
@@ -63,10 +63,11 @@
                 <!--notification start-->
                 <ul class="nav navbar-nav navbar-right">
 
+                    {% if current_user.is_authenticated %}
                     <li class="dropdown dropdown-usermenu">
                         <a href="#" class=" dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                            <div class="user-avatar"><img src="imgs/a0.jpg" alt="..."></div>
-                            <span class="hidden-sm hidden-xs">Usuario</span>
+                            <div class="user-avatar"><img src="{{ url_for('static', filename='img/a0.jpg') }}" alt="usr"></div>
+                            <span class="hidden-sm hidden-xs">Bienvenido(a) {{ current_user.name }}!</span>
                             <!--<i class="fa fa-angle-down"></i>-->
                             <span class="caret hidden-sm hidden-xs"></span>
                         </a>
@@ -77,6 +78,8 @@
                             <li><a href="#"><i class="fa fa-sign-out"></i> Cerrar Sesión</a></li>
                         </ul>
                     </li>
+                    {% endif %}
+
 
                     <li>
                         <a data-toggle="ui-aside-right" href=""><i class="glyphicon glyphicon-option-vertical"></i></a>

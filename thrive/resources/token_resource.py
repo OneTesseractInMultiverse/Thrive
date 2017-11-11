@@ -32,7 +32,7 @@ def load_claims(identity):
 # --------------------------------------------------------------------------
 # REFRESH TOKEN ENDPOINT
 # --------------------------------------------------------------------------
-@app.route('/refresh', methods=['POST'])
+@app.route('/api/v1/refresh', methods=['POST'])
 @jwt_refresh_token_required
 def refresh_access_token():
     """
@@ -54,7 +54,7 @@ def refresh_access_token():
 # --------------------------------------------------------------------------
 # TOKEN ENDPOINT
 # --------------------------------------------------------------------------
-@app.route('/token', methods=['POST'])
+@app.route('/api/v1/token', methods=['POST'])
 def post_token():
 
     """

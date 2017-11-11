@@ -8,7 +8,7 @@ from thrive.security.iam import create_user, get_user_by_username
 # --------------------------------------------------------------------------
 # POST: /ACCOUNT
 # --------------------------------------------------------------------------
-@app.route('/account', methods=['POST'])
+@app.route('/api/v1/user', methods=['POST'])
 def post_account():
 
     # First we verify the request is an actual json request. If not, then we

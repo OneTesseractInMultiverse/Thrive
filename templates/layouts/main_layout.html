@@ -33,7 +33,7 @@
                     <span class="logo"><img src="imgs/logo-dark.png" alt=""/></span>
                     <span class="logo-compact"><img src="imgs/logo-icon-dark.png" alt=""/></span>
                     -->
-                    <span class="logo">T H R I V E | L E A R N</span>
+                    <span class="logo"><strong>T H R I V E </strong>| L E A R N</span>
                 </a>
                 <!--logo end-->
             </div>
@@ -75,7 +75,7 @@
                             <li><a href="#"><i class="fa fa-cogs"></i>  Configuración</a></li>
                             <li><a href="#"><i class="fa fa-user"></i>  Perfil</a></li>
                             <li class="divider"></li>
-                            <li><a href="#"><i class="fa fa-sign-out"></i> Cerrar Sesión</a></li>
+                            <li><a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Cerrar Sesión</a></li>
                         </ul>
                     </li>
                     {% endif %}

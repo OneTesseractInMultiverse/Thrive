@@ -107,6 +107,17 @@ class Group(StructuredNode):
     
     # RELATIONS
     members = RelationshipTo('User', 'HAS')
+
+    # --------------------------------------------------------------------------
+    # DICTIONARY PROPERTY
+    # --------------------------------------------------------------------------
+    @property
+    def dictionary(self):
+        output = {}
+        for prop in self.__dict__.keys():
+            if not prop.startswith('__'):
+                output[prop] = getattr(self, prop)
+        return output
         
     
 # ##############################################################################
@@ -118,9 +129,10 @@ class Student(StructuredNode):
     student_id = StringProperty(unique_index=True, required=True)
     personal_id = StringProperty(unique_index=True, required=True)
     date_of_birth = DateProperty(required=True)
-    name = StringProperty()
-    last_name = StringProperty(required=True)
+    name = StringProperty(required=True, index=True)
+    last_name = StringProperty(required=True, index=True)
     second_last_name = StringProperty(required=True)
+    active = BooleanProperty(required=True)
 
     # --------------------------------------------------------------------------
     # DICTIONARY PROPERTY

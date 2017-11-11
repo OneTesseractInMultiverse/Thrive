@@ -1,6 +1,6 @@
 import uuid
 from functools import wraps
-from flask import jsonify, render_template
+from flask import render_template
 from flask_login import current_user
 from thrive import login_manager, app
 from thrive.models.graph import User, Group
@@ -119,38 +119,96 @@ def get_user_groups(user_id):
 # CREATE GROUP
 # ------------------------------------------------------------------------------        
 def create_group(group_data):
-        """
-        """
-        # Run validations
-        if 'name' not in group_data:
-            return None
-        if 'description' not in group_data:
-            return None
-        group = Group(
-                group_id=str(uuid.uuid4()),
-                name=group_data['name'].upper(),
-                description=group_data['description']
-            )
-        return group
+    """
+        Enables creation of groups. Groups are definitions that enable group-based
+        access control.
+        
+        :param group_data: A dictionary containing the data that must be used to
+                           to create the group.
+                           
+        :return: An instance of group if created correctly, None if anb error occured
+    """
+    # Run validations
+    if 'name' not in group_data:
+        return None
+    if 'description' not in group_data:
+        return None
+    group = Group(
+            group_id=str(uuid.uuid4()),
+            name=group_data['name'].upper(),
+            description=group_data['description']
+        )
+    return group
+
+
+# ------------------------------------------------------------------------------
+# GET GROUP
+# ------------------------------------------------------------------------------
+def find_group(group_id):
+    """
+        Tries to find the group associated with the given group_id. If not found
+        then None is returned.
+        
+        :param group_id: The id of the requested group.
+        
+        :return: Instance of Group if found, None if not found
+    """
+    if group_id is not None:
+        return Group.nodes.get_or_none(group_id=group_id)
+    return None
+
+
+# ------------------------------------------------------------------------------
+# ADD USER TO GROUP
+# ------------------------------------------------------------------------------
+def sys_add_user_to_group(group_id, user_id):
+    """
+        
+        :param group_id: The id of the group to where the user will be added
+        :param user_id: The id of the user that will be added to the group
+        :return: True if added, false if not
+    """
+    try:
+        user = User.nodes.get_or_none(user_id=user_id)
+        group = Group.nodes.get_or_none(group_id=group_id)
+        if user is not None and group is not None and \
+                (not user.groups.is_connected(group)) and (not group.members.is_connected(user)):
+            # (GROUP)-[HAS]->[USER]
+            group.members.connect(user)
+            group.save()
+            # (USER)-[IS_MEMBER_OF]->(GROUP)
+            user.groups.connect(group)
+            user.save()
+            return True
+        return False
+    except Exception as ex:
+        # TODO Good exception handling
+        print(ex)
+        return False
 
 
 # ------------------------------------------------------------------------------
 # ADD USERT TO GROUP
 # ------------------------------------------------------------------------------
-def add_user_to_group(caller_id, group_name, user):
+def add_user_to_group(caller_id, group_name, user_id):
     """
         Links a user to a given group
     """
     try:
-        admins = Group.nodes.get_or_none(name="system")
+        admins = Group.nodes.get_or_none(name="SYS_ADMIN")
         caller = User.nodes.get_or_none(user_id=caller_id)
         
         # We need to check that caller is member of admin in order to perform 
         # this action
         if admins is not None and caller is not None and caller.groups.is_connected(admins):
-            user = User.nodes.get_or_none(user_id=user)
+            user = User.nodes.get_or_none(user_id=user_id)
             group = User.nodes.get_or_none(name=group_name)
-            if user is not None and group is not None and not user.groups.is_connected(group) and not group.members.is_connected(user):
+
+            if user is not None and \
+                    group is not None and \
+                    not user_id.groups.is_connected(group) and \
+                    not group.members.is_connected(user):
+
                 # (GROUP)-[HAS]->[USER]
                 group.members.connect(user)
                 group.save()
@@ -167,18 +225,34 @@ def add_user_to_group(caller_id, group_name, user):
 
 
 # ------------------------------------------------------------------------------
+# HAS INTERSECTION
+# ------------------------------------------------------------------------------
+def has_intersection(a, b):
+    return any(set(a).intersection(set(b)))
+
+
+# ------------------------------------------------------------------------------
 # REQUIRES ROLES
 # ------------------------------------------------------------------------------
 def requires_roles(*roles):
     """
-        TODO
-        :param roles: 
-        :return: 
+        Decorator functions that enables group-based access control. Validates if
+        the caller belongs to the given groups. If not, prevents the request from
+        accessing the requested resource.
+        
+        :param roles: a list of roles that must be linked to current user
+        
+        :return: the result of the requested route if authorized, redirect to error
+                 if not authorized.
     """
     def wrapper(f):
         @wraps(f)
         def wrapped(*args, **kwargs):
-            if get_user_groups(current_user.user_id) not in roles:
+            user_groups = get_user_groups(current_user.user_id)
+            print(user_groups)
+            print(roles)
+            # We check that the intersection between user_groups and roles is not empty
+            if not has_intersection(user_groups, roles):
                 return render_template("error/401.html")
             return f(*args, **kwargs)
         return wrapped

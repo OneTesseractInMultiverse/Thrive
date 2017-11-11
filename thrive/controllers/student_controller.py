@@ -15,7 +15,7 @@ from flask import jsonify, request, render_template
 # --------------------------------------------------------------------------
 @app.route('/student/add', methods=['GET'])
 @login_required
-# @requires_roles('STUDENT_CREATOR')
+@requires_roles('STUDENT_ADMIN', 'SYS_ADMIN')
 def get_add_student():
     return render_template("student/add.html")
 
@@ -25,33 +25,27 @@ def get_add_student():
 # --------------------------------------------------------------------------
 @app.route('/student/add', methods=['POST'])
 @login_required
-# @requires_roles('STUDENT_CREATOR')
+@requires_roles('STUDENT_ADMIN', 'SYS_ADMIN')
 def post_add_student():
-
-    for key, value in request.form.items():
-        print('key: ' + key + " [value=" + value + "]")
-    print("Creating student...")
-
     try:
         student = Student(
             student_id=str(uuid.uuid4()),
             personal_id=request.form['personal-id'],
             name=request.form['name'],
             last_name=request.form['last-name'],
-            second_last_name=request.form['second-last-name']
+            second_last_name=request.form['second-last-name'],
+            active=True
         )
         student.set_date_of_birth(
             day=int(request.form['birth-day']),
             month=int(request.form['birth-month']),
             year=int(request.form['birth-year'])
         )
-        print("Student created...Now Saving...")
         student.save()
-
     except Exception as ex:
         template = "An exception of type {0} occurred. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         app.logger.error(message)
-        return render_template("student/add.html", err="Debe completar todos los campos requeridos")
+        return render_template("student/add.html", err="Debe completar todos los campos requeridos", form=request.form)
 
     return jsonify({"msg": "Shit got real..."})

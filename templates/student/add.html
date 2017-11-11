@@ -84,6 +84,26 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label for="education-level" class="col-sm-3 control-label">Nivel Educativo</label>
+                                <div class="col-sm-6">
+                                    <select id="education-level" name="education-level" class="form-control" onchange="updateEducationLevelYears();" required>
+                                        <option>Seleccionar...</option>
+                                        <option value="PREESCOLAR">Preescolar</option>
+                                        <option value="PRIMARIA">Primaria</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="education-level-year" class="col-sm-3 control-label">Nivel</label>
+                                <div class="col-sm-6">
+                                    <select id="education-level-year" name="education-level-year" class="form-control" required disabled>
+                                        <option>Seleccionar...</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <button type="submit" class="btn btn-primary">Crear</button>
                         </form>
                         <!-- FORM ENDS -->
@@ -92,5 +112,34 @@
             </div>
         </div>
     </div>
+
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript">
+        function updateEducationLevelYears(){
+            var educationLevelYear = $("#education-level-year");
+            var educationLevel = $("#education-level").val();
+            var options = [];
+            switch(educationLevel){
+                case 'PREESCOLAR':
+                    options = ['Pre-Kinder', 'Kinder', 'Preparatoria'];
+                    break;
+                case 'PRIMARIA':
+                    options = ['Primero', 'Segundo', 'Tercero', 'Cuarto', 'Quinto', 'Sexto'];
+                    break;
+                default:
+                    break;
+            }
+            educationLevelYear.empty();
+            options.forEach(function(option){
+                educationLevelYear.append($('<option>', {
+                    value: option.toUpperCase(),
+                    text: option
+                }));
+            });
+            educationLevelYear.removeAttr("disabled");
+        }
+    </script>
 
 {% endblock %}

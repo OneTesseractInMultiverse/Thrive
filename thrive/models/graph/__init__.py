@@ -132,6 +132,8 @@ class Student(StructuredNode):
     name = StringProperty(required=True, index=True)
     last_name = StringProperty(required=True, index=True)
     second_last_name = StringProperty(required=True)
+    education_level = StringProperty(required=True, index=True)
+    education_level_year = StringProperty(required=True, index=True)
     active = BooleanProperty(required=True)
 
     # --------------------------------------------------------------------------

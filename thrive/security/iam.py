@@ -249,8 +249,6 @@ def requires_roles(*roles):
         @wraps(f)
         def wrapped(*args, **kwargs):
             user_groups = get_user_groups(current_user.user_id)
-            print(user_groups)
-            print(roles)
             # We check that the intersection between user_groups and roles is not empty
             if not has_intersection(user_groups, roles):
                 return render_template("error/401.html")

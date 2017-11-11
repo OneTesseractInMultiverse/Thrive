@@ -34,6 +34,8 @@ def post_add_student():
             name=request.form['name'],
             last_name=request.form['last-name'],
             second_last_name=request.form['second-last-name'],
+            education_level=request.form['education-level'],
+            education_level_year=request.form['education-level-year'],
             active=True
         )
         student.set_date_of_birth(

@@ -1,57 +1,29 @@
-# GarnetREST
+# THRIVE | School Management Platform
 
-Author: Pedro Guzmán (pedro@subvertic.com)
+Authors: 
+ - Pedro Guzmán (pedro@subvertic.com)
+ - Juan Pablo Montoya
 
 Version: 1.0.0
 
 License: MIT License
 
-## About GarnetREST
+## About 
 
-An implementation of a Flask-based Boilerplate for REST APIs and REST-based Microservices. The 
-idea behind GarnetREST is to provide a base organization schema and some basic functionality that is 
-present in most Web API Applications based on RESTful principles. GarnetREST provides:
+**Thrive Learn** is web-based application designed originally with the purpose of providing an easy-to-use platform for
+ schools and educational centers that work with vulnerable population. Special considerations have been made in the design
+ of the application in order to provide tools that are adapted to the reality of this educational centers and the population
+ they have to work with. 
 
-* Support for MongoDB (Soon a version for Neo4j Graph Database will also be available)
-* Support for Json Web Token (JWT) Generation and Authentication
-* User account creation and management out-of-the-box
 
-====
+## Technology
 
-## Installation
+This applications has been implemented using the following technology:
 
-GarnetREST incorporates a set of cryptographic tools built-in. These tools are built on top of
-PyNaCl which is a Python binding for libsodium which is a cryptographic library developed by several 
-renowned cryptographers including Daniel J. Bernstein.
-
-First you must install libsodium using one of the following methods:
-
-* Mac OSX (Using homebrew): 
-
-```bash
-brew install libsodium
-```
-
-* Linux (APT):
-```bash
-#!/bin/bash
-sudo add-apt-repository ppa:chris-lea/libsodium;
-sudo echo "deb http://ppa.launchpad.net/chris-lea/libsodium/ubuntu trusty main" >> /etc/apt/sources.list;
-sudo echo "deb-src http://ppa.launchpad.net/chris-lea/libsodium/ubuntu trusty main" >> /etc/apt/sources.list;
-sudo apt-get update && sudo apt-get install libsodium-dev;
-```
-
-Or if you want to build it from source just download the sources from [here](https://download.libsodium.org/libsodium/releases/) 
-and extract it. Then move into the extracted folder and run:
-
-```bash
-./configure
-make
-make check
-sudo make install
-```
-
-* On Windows you can find pre-built libraries [here](https://download.libsodium.org/libsodium/releases/)
+- Python2.7 / Python 3.5
+- Flask
+- Neo4j Community Edition
+- Redis
 
 
 

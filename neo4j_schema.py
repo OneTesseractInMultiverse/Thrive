@@ -1,11 +1,31 @@
-import datetime
-import uuid
-import nacl.pwhash
-
-from datetime import date
-from nacl.pwhash import verify_scryptsalsa208sha256
+from py2neo import Graph, authenticate
 from py2neo.ogm import GraphObject, Property, RelatedTo, RelatedFrom
-from thrive import graph, login_manager
+from nacl.pwhash import verify_scryptsalsa208sha256, scryptsalsa208sha256_str
+from datetime import date
+import uuid
+
+"""
+    https://stackoverflow.com/questions/43131325/py2neo-bolt-protocolerror-server-closed-connection#_=_
+"""
+
+# Credentials
+url = 'graph.subvertic.com:7474'
+neo4j_username = 'neo4j'
+neo4j_password = 'Awsx1Sedc2Drfv34'
+
+# Fetch connection
+authenticate(
+    url,
+    neo4j_username,
+    neo4j_password
+)
+
+# Connect to graph
+graph = Graph(
+    'http://' + url,
+    bolt=False, 
+    secure=False
+)
 
 # ==============================================================================
 # CLASS USER
@@ -16,7 +36,7 @@ class User(GraphObject):
     # Indexes ------------------------------------------------------------------
     
     __primarykey__ = "user_id"
-    __primarylabel__ = "USER"
+    __primarylabel__ = "User"
     
     # Properties ---------------------------------------------------------------
     
@@ -32,8 +52,8 @@ class User(GraphObject):
     is_anonymous = False
     
     # Relations ----------------------------------------------------------------
-    groups = RelatedTo("GROUP", "MEMBER_OF")
-    courses = RelatedTo("COURSE", "TEACHES")
+    groups = RelatedTo("Group", "IS_MEMBER_OF")
+    #courses = RelatedTo("COURSE", "TEACHES")
     
     # --------------------------------------------------------------------------
     # METHOD INIT
@@ -43,6 +63,13 @@ class User(GraphObject):
         """
         for key, value in kwargs.items():
                 setattr(self, key, value)
+        
+    # --------------------------------------------------------------------------
+    # METHOD ADD TO GROUP
+    # --------------------------------------------------------------------------        
+    def add_to_group(self, group):
+        self.groups.add(group)
+        
     
     # --------------------------------------------------------------------------
     # METHOD LT
@@ -71,7 +98,6 @@ class User(GraphObject):
         """
             Compares the given password in a secure way with a value stored in
             database to determine if the password is correct or not.
-
             :param password: The password to be verified if it is the correct password
                    for the given user.
             :return: True if the authentication was successful and the password is
@@ -88,25 +114,11 @@ class User(GraphObject):
         """
             Hashes and securely stores the password in a way that can be verifiable
             but cannot be decrypted.
-
             :param password: The password that will be set to be used as auth mechanism
                              for the user.
             :return:         True if operation completed successfully
         """
-        self.password = nacl.pwhash.scryptsalsa208sha256_str(password.encode('utf-8')).decode('utf-8')
-        return True
-        
-    # --------------------------------------------------------------------------
-    # METHOD UPDATE EMAIL
-    # --------------------------------------------------------------------------
-    def update_email(self, email):
-        """
-            Updates the user's email with a new email.
-            :param email: The new email address that is going to be assigned to the
-                          user.
-            :return: True if the email was updated successfully
-        """
-        self.email = email
+        self.password = scryptsalsa208sha256_str(password.encode('utf-8')).decode('utf-8')
         return True
         
 # ==============================================================================
@@ -117,7 +129,7 @@ class Group(GraphObject):
     # Indexes ------------------------------------------------------------------
     
     __primarykey__ = "group_id"
-    __primarylabel__ = "GROUP"
+    __primarylabel__ = "Group"
     
     
     # Properties ---------------------------------------------------------------
@@ -126,7 +138,7 @@ class Group(GraphObject):
     description = Property()
     
     # Relations ----------------------------------------------------------------
-    members = RelatedTo("USER", "HAS_USER")
+    members = RelatedTo("User", "HAS_USER")
     
     # --------------------------------------------------------------------------
     # METHOD LT
@@ -151,89 +163,137 @@ class Group(GraphObject):
     # --------------------------------------------------------------------------        
     def add_member(self, new_member):
         self.members.add(new_member)
+    
+    # --------------------------------------------------------------------------
+    # METHOD SAVE TO 
+    # -------------------------------------------------------------------------- 
+    def save_to(self, dest_graph):
+        dest_graph.merge(self)
         
+    # --------------------------------------------------------------------------
+    # METHOD UPDATE
+    # --------------------------------------------------------------------------
+    def update(self, dest_graph):
+        dest_graph.push(self)
         
-# ==============================================================================
-# FUNCTIONS
-# ==============================================================================
-# ------------------------------------------------------------------------------
-# GET USER BY ID
-# ------------------------------------------------------------------------------
-@login_manager.user_loader
-def get_user_by_id(user_id):
-    """
-        Tries to find a given instance of user by using its username. If the user
-        exists and was found, an instance of user is returned, else, None is
-        returned meaning that the system was unable to find a user with the given
-        username.
-    """
-    return User.select(graph, user_id).first()
 
-# ------------------------------------------------------------------------------
-# GET USER BY USERNAME
-# ------------------------------------------------------------------------------
-def get_user_by_username(usrname):
-    """
-        Tries to find a given instance of user by using its username. If the user
-        exists and was found, an instance of user is returned, else, None is
-        returned meaning that the system was unable to find a user with the given
-        username.
-    """
-    try:
-        return User.select(graph).where("_.username =~ '" + usrname + "'").first()
-    except Exception as ex:
-        return None
+
+
+
+# ##############################################################################
+# CRYPTO TESTS
+# ##############################################################################
+
+
+   
+   
+"""  
+
+uid = str(uuid.uuid4())   
+
+print('Creating group...')
+group = Group(
+        group_id = str(uuid.uuid4()),
+        name = 'Directors',
+        description = 'Directores'
+    )
+    
+group.save_to(graph)
+
+--------------------------------------------------------------------------------
+
+print('Creating user...')      
+user = User(
+        user_id = uid,
+        name = "John",
+        last_name = "Doe", 
+        username = "john.doe@thrive-edu.org", 
+    )
+    
+print('User createed...')
+user.update_password('Wstinol123.')
+
+graph.merge(user)
+graph.merge(group)
+
+group.members.add(user)
+graph.push(group)
+
+user.groups.add(group)
+graph.push(user)
+"""
+    
+"""    
+uid = str(uuid.uuid4())   
+
+print('Creating group...')
+group = Group(
+        group_id = str(uuid.uuid4()),
+        name = 'Admin',
+        description = 'Administradores de Trive'
+    )
+    
+group.save_to(graph)
         
-# ------------------------------------------------------------------------------
-# BUILD_ACCOUNT
-# ------------------------------------------------------------------------------
-def build_account(account_data):
-    """
-        Validates a given dictionary containing information required to create 
-        a new user account and if it is correct, returns a instance of User, if 
-        not or any of the required parameters are missing, then None is returned
-        
-        :param account_data: A dictionary containing the necessary information 
-                to create a new user account. 
-        :return: None if some required data is missing and instance of User if
-                all data is correct
-    """
+print('Creating user...')      
+user = User(
+        user_id = uid,
+        name = "John",
+        last_name = "Doe", 
+        username = "john.doe@thrive-edu.org", 
+    )
 
-    try:
-        name = account_data['name']
-        if name is None:
-            return None
+print('User createed...')
+user.update_password('Wstinol123.')
 
-        last_name = account_data['last_name']
-        if last_name is None:
-            return None
+print('Saving to graph...')
+user.save_to(graph)
 
-        username = account_data['username']
-        if username is None:
-            return None
+#print('Adding user to group...')
+#group.add_member(user)
 
-        email = account_data['email']
-        if email is None:
-            return None
+#print('Saving changes...')
+#group.update_to(graph)
 
-        password = account_data['password']
-        if password is None:
-            return None
+print('Saved!')
+"""
+#usr = list(User.select(graph).where("_.name =~ 'J.*'"))[0]
+#grp = list(Group.select(graph).where("_.name =~ 'Staff'"))[0]
 
-        user = User(
-            user_id=str(uuid.uuid4()),
-            name=name,
-            last_name=last_name,
-            username=username,
-            email=email
-        )
+#grp.members.add(usr)
+#graph.push(grp)
 
-        # We set the password by calling the update function that handles
-        # proper hashing of the password so we never store the actual
-        # password
+#print(grp.name)
 
-        user.update_password(password)
-        return user
+#grp.members.add(usr)
+#graph.push(grp)
 
-    except:
-        return None
+#usr.groups.add(grp)
+#graph.push(usr)
+
+"""
+group = Group(
+        group_id = str(uuid.uuid4()),
+        name = 'Directors',
+        description = 'Directors Group'
+    )
+    
+group.members.add(usr)
+graph.merge(group)
+
+usr.groups.add(group)
+graph.merge(usr)
+"""
+
+
+usr = list(User.select(graph).where("_.name =~ 'J.*'"))[0]
+grp = list(Group.select(graph).where("_.name =~ 'Directors'"))[0]
+
+usr.groups.add(grp)
+graph.push(usr)
+
+usr = list(User.select(graph).where("_.name =~ 'J.*'"))[0]
+grp = list(Group.select(graph).where("_.name =~ 'Directors'"))[0]
+
+grp.members.add(usr)
+graph.push(grp)

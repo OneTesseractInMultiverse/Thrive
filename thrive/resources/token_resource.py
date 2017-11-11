@@ -1,9 +1,9 @@
-from thrive import app, jwt
 from flask import jsonify, request
-from thrive.models.user import get_user_by_username, get_user_by_id, User
-from flask_jwt_extended import JWTManager, create_access_token, create_refresh_token, \
+from flask_jwt_extended import create_access_token, create_refresh_token, \
     jwt_refresh_token_required, get_jwt_identity
-import datetime
+
+from thrive import app, jwt
+from thrive.security.iam import get_user_by_username, get_user_by_id
 
 
 # --------------------------------------------------------------------------
@@ -20,16 +20,19 @@ def load_claims(identity):
                  given identity
     """
     user = get_user_by_id(identity)
+    claims = []
+    for group in user.groups.all():
+        claims.append(group.group_id)
     return {
         "is_application_user": True,
-        "claims": user.claims
+        "member_of": claims
     }
 
 
 # --------------------------------------------------------------------------
 # REFRESH TOKEN ENDPOINT
 # --------------------------------------------------------------------------
-@app.route('/refresh', methods=['POST'])
+@app.route('/api/v1/refresh', methods=['POST'])
 @jwt_refresh_token_required
 def refresh_access_token():
     """
@@ -51,7 +54,7 @@ def refresh_access_token():
 # --------------------------------------------------------------------------
 # TOKEN ENDPOINT
 # --------------------------------------------------------------------------
-@app.route('/token', methods=['POST'])
+@app.route('/api/v1/token', methods=['POST'])
 def post_token():
 
     """

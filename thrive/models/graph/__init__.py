@@ -124,8 +124,28 @@ class Group(StructuredNode):
 # BUSINESS OBJECTS
 # ##############################################################################
 # (year, month, day)
+
+class LegalGuardian(StructuredNode):
+
+    # Attributes
+    personal_id = StringProperty(unique_index=True, required=True)
+    name = StringProperty(required=True)
+    last_name = StringProperty(required=True)
+    second_last_name = StringProperty(required=True)
+    phone_number = StringProperty(required=True, index=True)
+    email = StringProperty()
+    address = StringProperty()
+
+    # Edges
+    dependents = RelationshipTo('Student', 'IS_RESPONSIBLE_FOR')
+
+
+# ------------------------------------------------------------------------------
+# CLASS STUDENT
+# ------------------------------------------------------------------------------
 class Student(StructuredNode):
 
+    # Attributes
     student_id = StringProperty(unique_index=True, required=True)
     personal_id = StringProperty(unique_index=True, required=True)
     date_of_birth = DateProperty(required=True)
@@ -135,6 +155,9 @@ class Student(StructuredNode):
     education_level = StringProperty(required=True, index=True)
     education_level_year = StringProperty(required=True, index=True)
     active = BooleanProperty(required=True)
+
+    # Edges
+    legal_guardians = RelationshipTo('LegalGuardian', 'IS_DEPENDENT_OF')
 
     # --------------------------------------------------------------------------
     # DICTIONARY PROPERTY

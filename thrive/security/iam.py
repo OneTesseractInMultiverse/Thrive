@@ -228,6 +228,12 @@ def add_user_to_group(caller_id, group_name, user_id):
 # HAS INTERSECTION
 # ------------------------------------------------------------------------------
 def has_intersection(a, b):
+    """
+        
+        :param a: 
+        :param b: 
+        :return: 
+    """
     return any(set(a).intersection(set(b)))
 
 

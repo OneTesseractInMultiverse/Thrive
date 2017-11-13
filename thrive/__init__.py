@@ -6,7 +6,8 @@ from flask import Flask as FlaskBase, Config as ConfigBase
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
 from flask_login import LoginManager
-from py2neo import Graph
+from py2neo import Graph, authenticate
+from neomodel import config as neo4j
 
 
 # ------------------------------------------------------------------------------
@@ -77,12 +78,9 @@ db = MongoEngine(app)
 # SETUP MNEO4J DATABASE
 # ------------------------------------------------------------------------------
 
-url = os.environ.get('GRAPHENEDB_URL', 'http://hobby-kckcaodehcobgbkeefncldpl.dbs.graphenedb.com:24789')
-neo4j_username = os.environ.get('NEO4J_USERNAME')
-neo4j_password = os.environ.get('NEO4J_PASSWORD')
-
-graph = Graph(url + '/db/data/', username='thrive', password='b.kceYLqvbuDjK.C7JNh99Ea4RHXoFV')
-
+neo4j_username = app.config['NEO4J_USERNAME']
+neo4j_password = app.config['NEO4J_PASSWORD']
+neo4j.DATABASE_URL = app.config['DATABASE_URL']
 # ------------------------------------------------------------------------------
 # SETUP JWT
 # ------------------------------------------------------------------------------
@@ -92,5 +90,5 @@ jwt = JWTManager(app)
 # ------------------------------------------------------------------------------
 # LOAD ENDPOINTS
 # ------------------------------------------------------------------------------
-from thrive.endpoints import *
+from thrive.resources import *
 from thrive.controllers import *

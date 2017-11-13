@@ -1,14 +1,14 @@
-from thrive import app
-from flask import jsonify, request
-from thrive.models.user import build_account, get_user_by_username
-from mongoengine import ValidationError, NotUniqueError
 import sys
+
+from flask import jsonify, request
+from thrive import app
+from thrive.security.iam import create_user, get_user_by_username
 
 
 # --------------------------------------------------------------------------
 # POST: /ACCOUNT
 # --------------------------------------------------------------------------
-@app.route('/account', methods=['POST'])
+@app.route('/api/v1/user', methods=['POST'])
 def post_account():
 
     # First we verify the request is an actual json request. If not, then we
@@ -21,12 +21,12 @@ def post_account():
     # parse the parameters
     account_data = request.get_json()
 
-    if 'username' in account_data and get_user_by_username(usrname=account_data['username']) is not None:
+    if 'username' in account_data and get_user_by_username(user_name=account_data['username']) is not None:
         return jsonify({
             "msg": "The provided username is not valid"
         }), 400
 
-    user = build_account(account_data=account_data)
+    user = create_user(account_data=account_data)
 
     # Now we verify that all required values are present and build a new instance
     # of user. If the instance is None, then one of the validations failed so
@@ -35,8 +35,6 @@ def post_account():
         # We try to create an instance
         try:
             # We try to persist the user account in Mongo Database
-
-            print(user.to_dict())
             user.save()
 
             return jsonify({

@@ -84,7 +84,7 @@ class User(Document):
                              for the user.
             :return:         True if operation completed successfully
         """
-        self.password = nacl.pwhash.scryptsalsa208sha256_str(password.encode('ascii')).decode('ascii')
+        self.password = nacl.pwhash.scryptsalsa208sha256_str(password.encode('utf-8')).decode('utf-8')
         return True
 
     # --------------------------------------------------------------------------

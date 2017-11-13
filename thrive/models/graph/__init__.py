@@ -4,10 +4,14 @@ from neomodel import (
     StringProperty,
     BooleanProperty,
     IntegerProperty,
+    FloatProperty,
     DateProperty,
     UniqueIdProperty, 
     RelationshipTo, 
-    RelationshipFrom
+    RelationshipFrom,
+    One,
+    OneOrMore,
+    ZeroOrOne
 )
 
 from nacl.pwhash import verify_scryptsalsa208sha256, scryptsalsa208sha256_str
@@ -209,12 +213,42 @@ class Course(StructuredNode):
     title = StringProperty(required=True, index=True)
     description = StringProperty(required=True)
     year = IntegerProperty(required=True, index=True)
-    academic_level = StringProperty(required=True, index=True)
+    education_level_year = StringProperty(required=True, index=True)
     
     
     # RELATIONS ----------------------------------------------------------------
     taught_by = RelationshipTo('User', 'IS_TAUGHT_BY')
     students = RelationshipTo('Student', 'IS_BEING_TAKEN_BY')
+ 
+ 
+# ------------------------------------------------------------------------------
+# CLASS COURSE
+# ------------------------------------------------------------------------------    
+class Grade(StructuredNode):
+    
+    # ATTRIBUTES ---------------------------------------------------------------
+    passing = BooleanProperty(required=True)
+    total_points = FloatProperty(required=True)
+    
+    # RELATIONS ----------------------------------------------------------------
+    student = RelationshipTo('Student', 'WAS_OBTAINED_BY', cardinality=One)
+    course = RelationshipTo('Course', 'WAS_OBTAINED_IN', cardinality=One)
+    period = RelationshipTo('Period', 'WAS_OBTAINED_DURING', cardinality=One)
+    
+    
+# ------------------------------------------------------------------------------
+# CLASS COURSE
+# ------------------------------------------------------------------------------    
+class Period(StructuredNode):
+    
+    # ATRIBUTES ----------------------------------------------------------------
+    year = IntegerProperty(index=True, required=True)
+    denominator = IntegerProperty(index=True, required=True)
+    number = IntegerProperty(index=True, required=True)
+    
+    
+    # RELATIONS ----------------------------------------------------------------
+    
 
 # ##############################################################################
 # TRANSACTIONAL OBJECTS

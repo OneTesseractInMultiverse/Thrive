@@ -42,6 +42,7 @@ class User(StructuredNode):
     
     # RELATIONS
     groups = RelationshipTo('Group', 'IS_MEMBER_OF')
+    courses = RelationshipTo('Course', 'TEACHES')
 
     # --------------------------------------------------------------------------
     # DGET ID
@@ -124,15 +125,42 @@ class Group(StructuredNode):
 # BUSINESS OBJECTS
 # ##############################################################################
 # (year, month, day)
+
+class LegalGuardian(StructuredNode):
+
+    # Attributes
+    personal_id = StringProperty(unique_index=True, required=True)
+    name = StringProperty(required=True)
+    last_name = StringProperty(required=True)
+    second_last_name = StringProperty(required=True)
+    phone_number = StringProperty(required=True, index=True)
+    email = StringProperty()
+    address = StringProperty()
+
+    # Edges
+    dependents = RelationshipTo('Student', 'IS_RESPONSIBLE_FOR')
+
+
+# ------------------------------------------------------------------------------
+# CLASS STUDENT
+# ------------------------------------------------------------------------------
 class Student(StructuredNode):
 
+    # Attributes
     student_id = StringProperty(unique_index=True, required=True)
     personal_id = StringProperty(unique_index=True, required=True)
     date_of_birth = DateProperty(required=True)
     name = StringProperty(required=True, index=True)
     last_name = StringProperty(required=True, index=True)
     second_last_name = StringProperty(required=True)
+    education_level = StringProperty(required=True, index=True)
+    education_level_year = StringProperty(required=True, index=True)
     active = BooleanProperty(required=True)
+
+    # Edges
+    legal_guardians = RelationshipTo('LegalGuardian', 'IS_DEPENDENT_OF')
+    courses = RelationshipTo('Course', 'IS_TAKING')
+    past_courses = RelationshipTo('Course', 'TOOK')
 
     # --------------------------------------------------------------------------
     # DICTIONARY PROPERTY
@@ -169,7 +197,24 @@ class Student(StructuredNode):
             # TODO good exception handling!!!
             print(ex)
             return False
+            
 
+# ------------------------------------------------------------------------------
+# CLASS COURSE
+# ------------------------------------------------------------------------------
+class Course(StructuredNode):
+    
+    # ATTRIBUTES ---------------------------------------------------------------
+    course_id = StringProperty(unique_index=True, required=True)
+    title = StringProperty(required=True, index=True)
+    description = StringProperty(required=True)
+    year = IntegerProperty(required=True, index=True)
+    academic_level = StringProperty(required=True, index=True)
+    
+    
+    # RELATIONS ----------------------------------------------------------------
+    taught_by = RelationshipTo('User', 'IS_TAUGHT_BY')
+    students = RelationshipTo('Student', 'IS_BEING_TAKEN_BY')
 
 # ##############################################################################
 # TRANSACTIONAL OBJECTS

@@ -16,7 +16,7 @@
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/main.css') }}">
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/thrive.css') }}">
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='lib/rickshaw/rickshaw.min.css') }}">
-        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='js/modernizr-custom.js') }}">
+        <script type="application/javascript" src="{{ url_for('static', filename='js/modernizr-custom.js') }}"></script>
 
     </head>
     <body>
@@ -96,16 +96,23 @@
         <aside id="aside" class="ui-aside ui-aside--dark">
             <ul class="nav" ui-nav>
 
-                <li class="active">
+                <li>
                     <a href="{{ url_for('get_dashboard_root') }}"><i class="fa fa-home"></i><span> Principal </span></a>
                     <ul class="nav nav-sub">
-                        <li class="nav-sub-header"><a href="index.html"><span>Dashboard</span></a></li>
+                        <li class="nav-sub-header"><a href="#"><span>Principal</span></a></li>
                     </ul>
                 </li>
 
-
-
-
+                <li>
+                    <a href=""><i class="fa fa-user-o"></i><span>Estudiantes</span><i class="fa fa-angle-right pull-right"></i></a>
+                    <ul class="nav nav-sub">
+                        <li class="nav-sub-header"><a href=""><span>Charts</span></a></li>
+                        <li><a href="{{ url_for('post_add_student') }}"><span>Agregar Estudiante</span></a></li>
+                        <li><a href="#"><span>Preescolar</span></a></li>
+                        <li><a href="#"><span>Primaria</span></a></li>
+                        <li><a href="#"><span>Secundaria</span></a></li>
+                    </ul>
+                </li>
             </ul>
         </aside>
         <!--sidebar end-->
@@ -134,9 +141,11 @@
     <!-- {{ url_for('static', filename='lib/') }} -->
 
     <!--highcharts-->
+    <!--
     <script src="{{ url_for('static', filename='lib/highcharts/highcharts.js') }}"></script>
     <script src="{{ url_for('static', filename='lib/highcharts/modules/exporting.js') }}"></script>
     <script src="{{ url_for('static', filename='js/init-highcharts.js') }}"></script>
+    -->
 
     <!--sparkline-->
     <script src="{{ url_for('static', filename='lib/bower-jquery-sparkline/dist/jquery.sparkline.retina.js') }}"></script>
@@ -151,5 +160,8 @@
 
     <!-- Common Script   -->
     <script src="{{ url_for('static', filename='js/thrive/main.js') }} "></script>
+    {% block js %}
+
+    {% endblock %}
     </body>
 </html>

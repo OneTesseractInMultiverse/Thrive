@@ -7,11 +7,32 @@ from flask import jsonify, request, render_template
 
 
 # ==========================================================================
-# GETTERS
+# VIEW STUDENT
 # ==========================================================================
 
 # --------------------------------------------------------------------------
-# GET: /COURSE/CREATE
+# GET: /STUDENT
+# --------------------------------------------------------------------------
+@app.route('/student/<student_id>', methods=['GET'])
+@login_required
+@requires_roles('STUDENT_ADMIN', 'SYS_ADMIN', 'TEACHERS', 'DIRECTORS')
+def get_student(student_id):
+    try:
+        student = Student.nodes.get_or_none(student_id)
+        if student is not None:
+            render_template("")
+    except Exception as ex:
+        print(ex)
+        return render_template("error/404", err="Error de al conectarse a la base de datos")
+
+
+# ==========================================================================
+# ADD STUDENT
+# ==========================================================================
+
+
+# --------------------------------------------------------------------------
+# GET: /STUDENT/ADD
 # --------------------------------------------------------------------------
 @app.route('/student/add', methods=['GET'])
 @login_required
@@ -21,7 +42,7 @@ def get_add_student():
 
 
 # --------------------------------------------------------------------------
-# GET: /COURSE
+# POST: /STUDENT/ADD
 # --------------------------------------------------------------------------
 @app.route('/student/add', methods=['POST'])
 @login_required
@@ -34,6 +55,8 @@ def post_add_student():
             name=request.form['name'],
             last_name=request.form['last-name'],
             second_last_name=request.form['second-last-name'],
+            education_level=request.form['education-level'],
+            education_level_year=request.form['education-level-year'],
             active=True
         )
         student.set_date_of_birth(

@@ -229,6 +229,7 @@ class Grade(StructuredNode):
     # ATTRIBUTES ---------------------------------------------------------------
     passing = BooleanProperty(required=True)
     total_points = FloatProperty(required=True)
+    date = DateProperty(required=True)
     
     # RELATIONS ----------------------------------------------------------------
     student = RelationshipTo('Student', 'WAS_OBTAINED_BY', cardinality=One)
@@ -242,13 +243,23 @@ class Grade(StructuredNode):
 class Period(StructuredNode):
     
     # ATRIBUTES ----------------------------------------------------------------
+    
     year = IntegerProperty(index=True, required=True)
     denominator = IntegerProperty(index=True, required=True)
     number = IntegerProperty(index=True, required=True)
-    
-    
+
     # RELATIONS ----------------------------------------------------------------
+    grades = RelationshipTo('Grade', 'HAS')
     
+    # --------------------------------------------------------------------------
+    # METHOD STATE IS VALID
+    # --------------------------------------------------------------------------
+    def state_is_valid(self):
+        if self.year < 2016:
+            return False
+        if self.number > self.denominator:
+            return False
+        return True
 
 # ##############################################################################
 # TRANSACTIONAL OBJECTS

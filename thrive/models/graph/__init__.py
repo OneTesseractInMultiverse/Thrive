@@ -215,10 +215,10 @@ class Course(StructuredNode):
     year = IntegerProperty(required=True, index=True)
     education_level_year = StringProperty(required=True, index=True)
     
-    
     # RELATIONS ----------------------------------------------------------------
     taught_by = RelationshipTo('User', 'IS_TAUGHT_BY')
     students = RelationshipTo('Student', 'IS_BEING_TAKEN_BY')
+    period = RelationshipTo('Period', 'IS_GIVEN_DURING', cardinality=One)
  
  
 # ------------------------------------------------------------------------------
@@ -250,6 +250,7 @@ class Period(StructuredNode):
 
     # RELATIONS ----------------------------------------------------------------
     grades = RelationshipTo('Grade', 'HAS')
+    courses = RelationshipTo('Course', 'HAS')
     
     # --------------------------------------------------------------------------
     # METHOD STATE IS VALID

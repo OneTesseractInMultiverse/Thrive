@@ -19,6 +19,11 @@ def find_student_by_personal_id(personal_id):
     """
     return Student.nodes.get_or_none(personal_id=personal_id)
     
+    
+# ------------------------------------------------------------------------------
+# LIST STUDENTS BY LEVEL
+# ------------------------------------------------------------------------------
+    
 
 # ------------------------------------------------------------------------------
 # ADD LEGAL GUARDIAN
@@ -85,3 +90,22 @@ def add_grade_to_student(grade, course_id, student_id, period_year, period_numbe
             course.save()
             
     return False
+    
+# ------------------------------------------------------------------------------
+# ADD PERIODS FOR YEAR
+# ------------------------------------------------------------------------------
+
+def spawn_periods_for_year(year, denominator):
+    period = Period.nodes.get_or_none(denominator=denominator, year=year, number=1)
+    if period is None:
+        for num in range(1, denominator+1):
+            period = Period(
+                    number=num, 
+                    year=year,
+                    denominator=denominator
+                )
+            period.save()
+        return True
+    return False
+    
+

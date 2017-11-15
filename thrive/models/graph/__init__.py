@@ -229,6 +229,7 @@ class Grade(StructuredNode):
     # ATTRIBUTES ---------------------------------------------------------------
     passing = BooleanProperty(required=True)
     total_points = FloatProperty(required=True)
+    value_percentage = FloatProperty(required=True)
     date = DateProperty(required=True)
     
     # RELATIONS ----------------------------------------------------------------

@@ -1,0 +1,74 @@
+
+{% extends "layouts/main_layout.html" %}
+{% block body %}
+    
+    <div class="ui-container">
+        <div class="row">
+            <div class="col-md-12">
+               
+                <div class="panel profile-wrap">
+                    <!-- HEADER -->
+                    <header class="panel-heading clearfix">
+                        <h3 class="profile-title pull-left">
+                            <strong>ESTUDIANTE:</strong>    {{student.name}} {{student.last_name}} {{student.second_last_name}}
+                        </h3>
+                        <div class="pull-right">
+                            <a href="#" class="btn btn-sm btn-info"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </header>
+                    <!-- HEADER ENDS -->
+                    
+                    <div class="panel-body row">
+                        <!-- LEFT COLUMN -->
+                        <div class="col-md-4">
+                            <div class="profile-thumb">
+                                <img src="https://crowdcrafting.org/static/img/placeholder.user.png" alt=""/>
+                            </div>
+                        </div>
+                        <!-- RIGHT COLUMN -->
+                        <div class=col-md-4>
+                            <div class="profile-info">
+                                <h5> Número de identificación </h5>
+                                <p>{{student.personal_id}}</p>
+                            </div>
+                            <div class="profile-info">
+                                <h5>Nombre completo </h5>
+                                <p>{{student.name}} {{student.last_name}} {{student.second_last_name}}</p>
+                            </div>
+                            <div class="profile-info">
+                                <h5>Fecha de nacimiento </h5>
+                                <p>{{student.date_of_birth.strftime('%m/%d/%Y')}}</p>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-4">
+                            <div class="profile-info">
+                                <h5> Nivel educativo </h5>
+                                <p class="text-success">{{student.education_level}}</p>
+                            </div>
+                            <div class="profile-info">
+                                <h5> Año que cursa </h5>
+                                <p class="text-success">{{student.education_level_year}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    <div class="panel-body row">
+                        <!-- LEGAL GUARDIANS-->
+                        <div class="col-md-12">
+
+                        </div>
+                    </div>
+                    
+                    
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

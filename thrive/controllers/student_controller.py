@@ -3,7 +3,7 @@ from thrive import app, login_manager
 from thrive.models.graph import Student
 from thrive.security.iam import requires_roles
 from flask_login import login_user, login_required, current_user
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, redirect, url_for
 
 
 # ==========================================================================
@@ -18,9 +18,12 @@ from flask import jsonify, request, render_template
 @requires_roles('STUDENT_ADMIN', 'SYS_ADMIN', 'TEACHERS', 'DIRECTORS')
 def get_student(student_id):
     try:
-        student = Student.nodes.get_or_none(student_id)
+        student = Student.nodes.get_or_none(student_id=student_id)
+        guardians = student.legal_guardians.all()
         if student is not None:
-            render_template("")
+            return render_template("student/view.html", student=student, guardians=guardians)
+        else:
+            return render_template("error/404", err="No se pudo encontrar el Estudiante asociado al identificador [" + student_id + "]")
     except Exception as ex:
         print(ex)
         return render_template("error/404", err="Error de al conectarse a la base de datos")
@@ -65,10 +68,11 @@ def post_add_student():
             year=int(request.form['birth-year'])
         )
         student.save()
+        return redirect(url_for('get_student', student_id=student.student_id))
     except Exception as ex:
         template = "An exception of type {0} occurred. Arguments:\n{1!r}"
         message = template.format(type(ex).__name__, ex.args)
         app.logger.error(message)
         return render_template("student/add.html", err="Debe completar todos los campos requeridos", form=request.form)
 
-    return jsonify({"msg": "Shit got real..."})
+

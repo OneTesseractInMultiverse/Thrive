@@ -1,0 +1,87 @@
+
+{% extends "layouts/main_layout.html" %}
+{% block body %}
+
+    <div class="ui-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <header class="panel-heading">
+                        <h2>Agregar Responsable Legal</h2>
+                        <span class="tools pull-right">
+                            <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
+                        </span>
+                    </header>
+                    <div class="panel-body">
+
+                        {% if err %}
+                            <div class="alert alert-danger alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Error!</strong> {{ err }}
+                            </div>
+                        {% endif %}
+
+                        <!-- FORM BEGINS -->
+                        <form class="form-horizontal form-variance" role="form" method="post">
+                            
+                            <input type="hidden" name="student-id" id="student-id" value="{{student_id}}" />
+
+                            <div class="form-group">
+                                <label for="personal-id" class="col-sm-3 control-label">Número de Identificación*</label>
+                                <div class="col-sm-6">
+                                    <input name="personal-id" class="form-control" id="personal-id" placeholder="Cédula Nacional/DIMEX/Pasaporte" type="text" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="col-sm-3 control-label">Nombre*</label>
+                                <div class="col-sm-6">
+                                    <input name="name" class="form-control" id="name" placeholder="Nombre" type="text" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="last-name" class="col-sm-3 control-label">Apellido*</label>
+                                <div class="col-sm-6">
+                                    <input name="last-name" class="form-control" id="last-name" placeholder="Apellido" type="text" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="second-last-name" class="col-sm-3 control-label">Segundo Apellido*</label>
+                                <div class="col-sm-6">
+                                    <input name="second-last-name" class="form-control" id="second-last-name" placeholder="Segundo Apellido" type="text" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone-number" class="col-sm-3 control-label">Teléfono*</label>
+                                <div class="col-sm-6">
+                                    <input name="phone-number" class="form-control" id="phone-number" placeholder="Teléfono" type="number" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="col-sm-3 control-label">Correo Electrónico</label>
+                                <div class="col-sm-6">
+                                    <input name="email" class="form-control" id="email" placeholder="Correo Electrónico" type="email">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="addess" class="col-sm-3 control-label">Dirección</label>
+                                <div class="col-sm-6">
+                                    <textarea name="address" class="form-control" id="address" placeholder="Dirección"></textarea>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        </form>
+                        <!-- FORM ENDS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

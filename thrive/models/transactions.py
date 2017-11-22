@@ -3,7 +3,9 @@ from thrive.models.graph import (
     Group,
     Student, 
     LegalGuardian, 
-    Course
+    Course,
+    Grade, 
+    Period
 )
 import uuid
 
@@ -16,6 +18,12 @@ def find_student_by_personal_id(personal_id):
     """
     """
     return Student.nodes.get_or_none(personal_id=personal_id)
+    
+    
+# ------------------------------------------------------------------------------
+# LIST STUDENTS BY LEVEL
+# ------------------------------------------------------------------------------
+    
 
 # ------------------------------------------------------------------------------
 # ADD LEGAL GUARDIAN
@@ -29,6 +37,7 @@ def add_legal_guardian(student, legal_guardian):
             guardian.address = legal_guardian.address
         else:
             guardian = legal_guardian
+        guardian.save()
         guardian.dependents.connect(student)
         guardian.save()
         student.legal_guardians.connect(guardian)
@@ -46,7 +55,6 @@ def add_legal_guardian(student, legal_guardian):
 # ------------------------------------------------------------------------------
 def add_student_to_course(course, student):
     """
-        Validates if
     """
     if student is not None and course is not None:
         if student.education_level_year == course.education_level_year:
@@ -56,3 +64,49 @@ def add_student_to_course(course, student):
             course.save()
             return True
     return False
+    
+# ------------------------------------------------------------------------------
+# ADD GRADE TO STUDENT
+# ------------------------------------------------------------------------------
+def add_grade_to_student(grade, course_id, student_id, period_year, period_number):
+    """
+    """
+    if grade is not None:
+        student = Student.nodes.get_or_none(student_id=student_id)
+        period = Period.nodes.get_or_none(year=period_year, number=period_number)
+        course = Course.nodes.get_or_none(course_id=course_id)
+        if student is not None and period is not None and course is not None:
+            
+            grade.student.connect(student)
+            student.grades.connect(grade)
+            
+            grade.course.connect(course)
+            course.grades.connect(grade)
+            
+            grade.period.connect(period)
+            period.grades.connect(grade)
+            
+            grade.save()
+            period.save()
+            course.save()
+            
+    return False
+    
+# ------------------------------------------------------------------------------
+# ADD PERIODS FOR YEAR
+# ------------------------------------------------------------------------------
+
+def spawn_periods_for_year(year, denominator):
+    period = Period.nodes.get_or_none(denominator=denominator, year=year, number=1)
+    if period is None:
+        for num in range(1, denominator+1):
+            period = Period(
+                    number=num, 
+                    year=year,
+                    denominator=denominator
+                )
+            period.save()
+        return True
+    return False
+    
+

@@ -55,11 +55,42 @@
                     </div>
                     
                     
-                    
+                    <!-- HEADER -->
+                    <header class="panel-heading clearfix">
+                        <h3 class="profile-title pull-left">
+                            RESPONSABLES
+                        </h3>
+                        <div class="pull-right">
+                            <a href="{{url_for('get_create_legal_guardian', student_id=student.student_id)}}" class="btn btn-sm btn-info"><i class="fa fa-plus"></i></a>
+                        </div>
+                    </header>
+                    <!-- HEADER ENDS -->
                     <div class="panel-body row">
                         <!-- LEGAL GUARDIANS-->
                         <div class="col-md-12">
-
+                            <table class="table">
+                                
+                                <thead>
+                                    <tr>
+                                        <th>Número de Identificación</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Teléfono</th>
+                                        <th>Correo Electrónico</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for guardian in guardians %}
+                                        <tr>
+                                            <td>{{guardian.personal_id}}</td>
+                                            <td>{{guardian.name}}</td>
+                                            <td>{{guardian.last_name}}</td>
+                                            <td>{{guardian.phone_number}}</td>
+                                            <td>{{guardian.email}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     

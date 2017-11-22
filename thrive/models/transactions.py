@@ -37,6 +37,7 @@ def add_legal_guardian(student, legal_guardian):
             guardian.address = legal_guardian.address
         else:
             guardian = legal_guardian
+        guardian.save()
         guardian.dependents.connect(student)
         guardian.save()
         student.legal_guardians.connect(guardian)

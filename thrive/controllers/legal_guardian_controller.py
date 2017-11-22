@@ -7,6 +7,7 @@ from flask_login import login_user, login_required, current_user
 from flask import jsonify, request, render_template, redirect, url_for
 
 
+
 # --------------------------------------------------------------------------
 # GET: /STUDENT
 # --------------------------------------------------------------------------
@@ -46,7 +47,7 @@ def post_create_legal_guardian(student_id):
                 address = request.form['address']
             )
             add_legal_guardian(student=student, legal_guardian=guardian)
-            return redirect(url_for('get_student',student ))
+            return redirect(url_for('get_student',student_id=student.student_id ))
             
         else:
             return render_template("error/404", err="El identificador de estudiante no es válido")

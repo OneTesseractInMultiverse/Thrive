@@ -79,9 +79,12 @@ class User(StructuredNode):
             :return: True if the authentication was successful and the password is
                      correct
         """
-        proposed = password.encode('utf-8')
-        hashed = self.password.encode('utf-8')
-        return verify_scryptsalsa208sha256(hashed, proposed)
+        try:
+            proposed = password.encode('utf-8')
+            hashed = self.password.encode('utf-8')
+            return verify_scryptsalsa208sha256(hashed, proposed)
+        except Exception as ex:
+            return False
         
     # --------------------------------------------------------------------------
     # METHOD UPDATE PASSWORD

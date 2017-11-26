@@ -163,6 +163,7 @@ class Student(StructuredNode):
     education_level = StringProperty(required=True, index=True)
     education_level_year = StringProperty(required=True, index=True)
     active = BooleanProperty(required=True)
+    section = IntegerProperty(required=True)
 
     # Edges
     legal_guardians = RelationshipTo('LegalGuardian', 'IS_DEPENDENT_OF')

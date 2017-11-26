@@ -106,13 +106,21 @@
                 <li>
                     <a href=""><i class="fa fa-user-o"></i><span>Estudiantes</span><i class="fa fa-angle-right pull-right"></i></a>
                     <ul class="nav nav-sub">
-                        <li class="nav-sub-header"><a href=""><span>Charts</span></a></li>
+                        <li class="nav-sub-header"><a href=""><span>Gestión de Estudiantes</span></a></li>
                         <li><a href="{{ url_for('post_add_student') }}"><span>Agregar Estudiante</span></a></li>
-                        <li><a href="#"><span>Preescolar</span></a></li>
-                        <li><a href="#"><span>Primaria</span></a></li>
-                        <li><a href="#"><span>Secundaria</span></a></li>
+                        <li><a href="{{ url_for('get_find_students') }}"><span>Buscar</span></a></li>
                     </ul>
                 </li>
+
+                <li>
+                    <a href=""><i class="fa fa-book" aria-hidden="true"></i><span>Cursos</span><i class="fa fa-angle-right pull-right"></i></a>
+                    <ul class="nav nav-sub">
+                        <li class="nav-sub-header"><a href=""><span>Gestión de Cursos</span></a></li>
+                        <li><a href="#"><span>Agregar Curso</span></a></li>
+                        <li><a href="#"><span>Buscar</span></a></li>
+                    </ul>
+                </li>
+
             </ul>
         </aside>
         <!--sidebar end-->

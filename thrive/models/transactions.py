@@ -23,7 +23,13 @@ def find_student_by_personal_id(personal_id):
 # ------------------------------------------------------------------------------
 # LIST STUDENTS BY LEVEL
 # ------------------------------------------------------------------------------
-    
+def get_students_by_level(education_level, education_level_year):
+    try:
+        return Student.nodes.filter(education_level=education_level, education_level_year=education_level_year)
+    except Exception as x:
+        print(x)
+        return []
+
 
 # ------------------------------------------------------------------------------
 # ADD LEGAL GUARDIAN
@@ -49,7 +55,6 @@ def add_legal_guardian(student, legal_guardian):
         return False
 
 
-
 # ------------------------------------------------------------------------------
 # ADD STUDENT TO COURSE
 # ------------------------------------------------------------------------------
@@ -64,7 +69,8 @@ def add_student_to_course(course, student):
             course.save()
             return True
     return False
-    
+
+
 # ------------------------------------------------------------------------------
 # ADD GRADE TO STUDENT
 # ------------------------------------------------------------------------------
@@ -91,11 +97,11 @@ def add_grade_to_student(grade, course_id, student_id, period_year, period_numbe
             course.save()
             
     return False
-    
+
+
 # ------------------------------------------------------------------------------
 # ADD PERIODS FOR YEAR
 # ------------------------------------------------------------------------------
-
 def spawn_periods_for_year(year, denominator):
     period = Period.nodes.get_or_none(denominator=denominator, year=year, number=1)
     if period is None:

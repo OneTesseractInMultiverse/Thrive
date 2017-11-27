@@ -5,321 +5,65 @@
     <div class="ui-container">
                         <div class="row">
                             <!--task states start-->
-                            <div class="col-md-6 col-lg-4 col-sm-6">
+                            <div class="col-md-12 col-lg-12 col-sm-12">
                                 <div class="panel">
                                     <header class="panel-heading">
-                                        Task Statistics
-                                        <span class="tools pull-right">
-                                            <a class="refresh-box fa fa-repeat" href="javascript:;"></a>
-                                            <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
-                                            <a class="close-box fa fa-times" href="javascript:;"></a>
-                                        </span>
+                                        <h1>Estadísticas Generales</h1>
+                                        <hr>
                                     </header>
+
                                     <div class="panel-body">
+
                                         <div class="row w-states">
-                                            <div class="col-xs-6">
+                                            <div class="col-xs-3">
                                                 <a href="#" class="btn btn-primary btn-block">
-                                                    <span class="value">24</span>
-                                                    <span class="info">Task completed</span>
+                                                    <span class="value">{{ t_students }}</span>
+                                                    <span class="info">Total de Estudiantes</span>
                                                 </a>
                                             </div>
-                                            <div class="col-xs-6">
-                                                <a href="#" class="btn btn-info btn-block">
-                                                    <span class="value">18</span>
-                                                    <span class="info">Task ongoing</span>
-                                                </a>
-                                            </div>
-                                            <div class="col-xs-6">
+                                            <div class="col-xs-3">
                                                 <a href="#" class="btn btn-success btn-block">
-                                                    <span class="value">13</span>
-                                                    <span class="info">Task Processing</span>
+                                                    <span class="value">{{ t_active_studs }}</span>
+                                                    <span class="info">Estudiantes Activos</span>
                                                 </a>
                                             </div>
-                                            <div class="col-xs-6">
+                                            <div class="col-xs-3">
+                                                <a href="#" class="btn btn-warning btn-block">
+                                                    <span class="value">{{ t_teachers }}</span>
+                                                    <span class="info">Docentes</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-xs-3">
                                                 <a href="#" class="btn btn-danger btn-block">
-                                                    <span class="value">02</span>
-                                                    <span class="info">Task Failed</span>
-                                                </a>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <a href="#" class="btn btn-default btn-block margin0">
-                                                    <span class="value">14</span>
-                                                    <span class="info">Task pending</span>
-                                                </a>
-                                            </div>
-                                            <div class="col-xs-6">
-                                                <a href="#" class="btn btn-default btn-block margin0">
-                                                    <span class="value">08</span>
-                                                    <span class="info">Upcoming Task</span>
+                                                    <span class="value">{{ t_users }}</span>
+                                                    <span class="info">Usuarios</span>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                             <!--task states end-->
 
-                            <!--charts start-->
-                            <div class="col-md-6 col-lg-4 col-sm-6">
-                                <div class="panel">
-                                    <div class="panel-body">
-                                        <div id="stacked-bar-chart"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--charts end-->
 
-                            <!--daily visit start-->
-                            <div class="col-md-12 col-lg-4 col-sm-12">
-                                <div class="panel">
-                                    <header class="panel-heading">
-                                        Daily Visit
-                                        <span class="tools pull-right">
-                                            <a class="refresh-box fa fa-repeat" href="javascript:;"></a>
-                                            <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
-                                            <a class="close-box fa fa-times" href="javascript:;"></a>
-                                        </span>
-                                    </header>
-                                    <div class="panel-body text-center">
-                                        <div class="chart-wrap">
-                                            <div id="bar-chart-1"></div>
-                                            <small>Laptop</small>
-                                        </div>
-                                        <div class="chart-wrap">
-                                            <div id="bar-chart-2"></div>
-                                            <small>iPhone</small>
-                                        </div>
-                                        <div class="chart-wrap">
-                                            <div id="bar-chart-3"></div>
-                                            <small>iPad</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel">
-                                    <header class="panel-heading">
-                                        Visitor Graph
-                                        <span class="tools pull-right">
-                                            <a class="refresh-box fa fa-repeat" href="javascript:;"></a>
-                                            <a class="collapse-box fa fa-chevron-down" href="javascript:;"></a>
-                                            <a class="close-box fa fa-times" href="javascript:;"></a>
-                                        </span>
-                                    </header>
-                                    <div class="panel-body text-center">
-                                        <div class="chart-wrap">
-                                            <small>visit </small>
-                                            <span class="h4">10,090</span>
-                                            <div id="line-chart-1"></div>
-                                            <small>Page visit</small>
-                                        </div>
-                                        <div class="chart-wrap">
-                                            <small>Unique visitor </small>
-                                            <span class="h4">8,129</span>
-                                            <div id="line-chart-2"></div>
-                                            <small>Avg. visit Duration</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--daily visit end-->
 
                         </div>
 
-                        <!--states start-->
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="panel short-states">
-                                    <div class="panel-title">
-                                        <h4> <span class="label label-danger pull-right">Daily Income</span></h4>
-                                    </div>
-                                    <div class="panel-body">
-                                        <h1>$1,3012</h1>
-                                        <div class="text-danger pull-right">53% <i class="fa fa-bolt"></i></div>
-                                        <small>Daily income</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="panel short-states">
-                                    <div class="panel-title">
-                                        <h4> <span class="label label-info pull-right">Weekly Income</span></h4>
-                                    </div>
-                                    <div class="panel-body">
-                                        <h1>$5,534</h1>
-                                        <div class="text-primary pull-right">65% <i class="fa fa-level-up"></i></div>
-                                        <small>Weekly Income</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="panel short-states">
-                                    <div class="panel-title">
-                                        <h4> <span class="label label-warning pull-right">Monthly Income</span></h4>
-                                    </div>
-                                    <div class="panel-body">
-                                        <h1>$22,329</h1>
-                                        <div class="text-warning pull-right">77% <i class="fa fa-level-down"></i></div>
-                                        <small>Monthly Income</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="panel short-states">
-                                    <div class="panel-title">
-                                        <h4> <span class="label label-success pull-right">Annual Income</span></h4>
-                                    </div>
-                                    <div class="panel-body">
-                                        <h1>$268,188</h1>
-                                        <div class="text-success pull-right">88% <i class="fa fa-level-up"></i></div>
-                                        <small>Annual Income</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--states end-->
 
-                        <!--task distribution start-->
-                        <div class="row">
-                            <div class="col-md-6">
+                            <!--Courses-->
+                            <div class="col-md-12 ">
                                 <div class="panel">
-                                    <header class="panel-heading">
-                                        Order Statistics
-                                        <span class="tools pull-right">
-                                            <a class="close-box fa fa-times" href="javascript:;"></a>
-                                        </span>
-                                    </header>
-                                    <div class="panel-body">
-                                        <div class="u-relative">
-                                            <div id="rickshaw-stacked-bars"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="panel">
-                                    <header class="panel-heading">
-                                        Profit Database
-                                        <span class="tools pull-right">
-                                            <a class="close-box fa fa-times" href="javascript:;"></a>
-                                        </span>
-                                    </header>
-                                    <div class="panel-body-">
-                                        <table class="table  table-hover general-table">
-                                            <thead>
-                                            <tr>
-                                                <th> Company</th>
-                                                <th class="hidden-phone">Descrition</th>
-                                                <th>Profit</th>
-                                                <th>Status</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td><a href="#">Graphics</a></td>
-                                                <td class="hidden-phone">Lorem Ipsum dorolo imit</td>
-                                                <td>1320.00$ </td>
-                                                <td><span class="label label-info label-mini">Due</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        ThemeBucket
-                                                    </a>
-                                                </td>
-                                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
-                                                <td>556.00$ </td>
-                                                <td><span class="label label-warning label-mini">Due</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        XYZ
-                                                    </a>
-                                                </td>
-                                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
-                                                <td>13240.00$ </td>
-                                                <td><span class="label label-success label-mini">Paid</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        BCSE
-                                                    </a>
-                                                </td>
-                                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
-                                                <td>3455.50$ </td>
-                                                <td><span class="label label-danger label-mini">Paid</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="#">AVC Ltd</a></td>
-                                                <td class="hidden-phone">Lorem Ipsum dorolo imit</td>
-                                                <td>110.00$ </td>
-                                                <td><span class="label label-primary label-mini">Due</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        Themeforest
-                                                    </a>
-                                                </td>
-                                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
-                                                <td>456.00$ </td>
-                                                <td><span class="label label-warning label-mini">Due</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="#">AVC Ltd</a></td>
-                                                <td class="hidden-phone">Lorem Ipsum dorolo imit</td>
-                                                <td>110.00$ </td>
-                                                <td><span class="label label-primary label-mini">Due</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        BCSE
-                                                    </a>
-                                                </td>
-                                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
-                                                <td>3455.50$ </td>
-                                                <td><span class="label label-danger label-mini">Paid</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="#">AVC Ltd</a></td>
-                                                <td class="hidden-phone">Lorem Ipsum dorolo imit</td>
-                                                <td>110.00$ </td>
-                                                <td><span class="label label-primary label-mini">Due</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <a href="#">
-                                                        Themeforest
-                                                    </a>
-                                                </td>
-                                                <td class="hidden-phone">Lorem Ipsum dorolo</td>
-                                                <td>456.00$ </td>
-                                                <td><span class="label label-warning label-mini">Due</span></td>
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--task distribution end-->
-
-                        <div class="row">
-                            <!--task duration start-->
-                            <div class="col-md-5 ">
-                                <div class="panel">
-                                    <header class="panel-heading">
-                                        Task Distribution
-                                        <span class="tools pull-right">
-                                            <a class="close-box fa fa-times" href="javascript:;"></a>
-                                        </span>
+                                    <header  class="panel-heading">
+                                        <h1>Cursos</h1>
+                                        <hr/>
                                     </header>
                                     <div class="">
+                                        Usted aun no tiene cursos asignados.
                                         <ul class="Notification-list list-group">
 
+                                            <!--
                                             <li class="Notification list-group-item">
                                                 <button class="Notification__status Notification__status--read" type="button" name="button"></button>
                                                 <a href="javaScritp:;">
@@ -332,112 +76,12 @@
                                                     </div>
                                                 </a>
                                             </li>
-
-
-                                            <li class="Notification list-group-item">
-                                                <button class="Notification__status Notification__status--read" type="button" name="button"></button>
-                                                <a href="javaScritp:;">
-                                                    <div class="Notification__avatar pull-left">
-                                                        <img src="imgs/a1.jpg" alt="...">
-                                                    </div>
-                                                    <div class="Notification__highlight">
-                                                        <p class="Notification__highlight-excerpt"><b>Tomas Edison</b> and 4 other people like your post “keep clam and watch the fizz”.</p>
-                                                        <p class="Notification__highlight-time">1 day ago</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-                                            <li class="Notification list-group-item">
-                                                <button class="Notification__status Notification__status--unread" type="button" name="button"></button>
-                                                <a href="javaScritp:;">
-                                                    <div class="Notification__avatar pull-left">
-                                                        <img src="imgs/a0.jpg" alt="...">
-                                                    </div>
-                                                    <div class="Notification__highlight">
-                                                        <p class="Notification__highlight-excerpt"><b>Luciad Extic</b> can join conference.</p>
-                                                        <p class="Notification__highlight-time">1 hour ago</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-                                            <li class="Notification list-group-item">
-                                                <button class="Notification__status Notification__status--read" type="button" name="button"></button>
-                                                <a href="javaScritp:;">
-                                                    <div class="Notification__avatar pull-left">
-                                                        <img src="imgs/a2.jpg" alt="...">
-                                                    </div>
-                                                    <div class="Notification__highlight">
-                                                        <p class="Notification__highlight-excerpt"><b>Tomas Edison</b> and 4 other people like your post “keep clam and watch the fizz”.</p>
-                                                        <p class="Notification__highlight-time">1 day ago</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-
-                                            <li class="Notification list-group-item">
-                                                <button class="Notification__status Notification__status--read" type="button" name="button"></button>
-                                                <a href="javaScritp:;">
-                                                    <div class="Notification__avatar pull-left">
-                                                        <img src="imgs/a1.jpg" alt="...">
-                                                    </div>
-                                                    <div class="Notification__highlight">
-                                                        <p class="Notification__highlight-excerpt"><b>Tomas Edison</b> and 4 other people like your post “keep clam and watch the fizz”.</p>
-                                                        <p class="Notification__highlight-time">1 day ago</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-
-                                            <li class="Notification list-group-item">
-                                                <button class="Notification__status Notification__status--unread" type="button" name="button"></button>
-                                                <a href="javaScritp:;">
-                                                    <div class="Notification__avatar pull-left">
-                                                        <img src="imgs/a0.jpg" alt="...">
-                                                    </div>
-                                                    <div class="Notification__highlight">
-                                                        <p class="Notification__highlight-excerpt"><b>Luciad Extic</b> can join conference.</p>
-                                                        <p class="Notification__highlight-time">1 hour ago</p>
-                                                    </div>
-                                                </a>
-                                            </li>
-
+                                            -->
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <!--task duration end-->
-
-                            <!--server load live start-->
-                            <div class="col-md-7 ">
-                                <div class="panel">
-                                    <header class="panel-heading panel-border">
-                                        Server Load Live
-                                        <span class="tools pull-right">
-                                            <a class="close-box fa fa-times" href="javascript:;"></a>
-                                        </span>
-                                    </header>
-                                    <div class="">
-                                        <div class="u-relative u-clear">
-                                            <div id="rickshaw-realtime_y_axis"></div>
-                                            <div id="rickshaw-realtime"></div>
-                                        </div>
-                                        <div class="row panel-body text-center">
-                                            <div class="col-xs-4">
-                                                <h5>135.14 KB</h5>
-                                                <p class="small ">Currently Load</p>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <h5>54.98 MB</h5>
-                                                <p class="small">Average Load</p>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <h5>10.59 GB</h5>
-                                                <p class="small">Total usage</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!--server load live end-->
+                            <!--Courses-->
 
                         </div>
 

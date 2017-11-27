@@ -53,7 +53,7 @@ def post_account_login():
         return redirect(url_for('get_dashboard_root'))
     else:
         app.logger.info('Credentials are not correct...')
-        error = "Wrong username or password!"
+        error = "Su contraseña no es correcta"
         return render_template("authentication/login.html", error=error)
 
 

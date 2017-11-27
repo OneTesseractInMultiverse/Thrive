@@ -65,6 +65,7 @@ class Garnet(FlaskBase):
 __version__ = '1.0.0'
 app = Garnet('Thrive')
 app.config.from_object('config')
+#app.debug = True
 
 login_manager = LoginManager()
 login_manager.init_app(app)

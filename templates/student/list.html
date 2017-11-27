@@ -1,0 +1,64 @@
+
+{% extends "layouts/main_layout.html" %}
+{% block body %}
+
+    <div class="ui-container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel profile-wrap">
+
+                    <!-- HEADER -->
+                    <header class="panel-heading clearfix">
+                        <h3 class="profile-title pull-left">
+                            RESULTADO DE BÚSQUEDA
+                        </h3>
+                        <div class="pull-right">
+                            <a href="{{url_for('get_find_students')}}" class="btn btn-sm btn-info">
+                                <i class="fa fa-reply" aria-hidden="true"></i> Regresar
+                            </a>
+                        </div>
+                    </header>
+
+                    <!-- HEADER ENDS -->
+                    <div class="panel-body row">
+                        <!-- LEGAL GUARDIANS-->
+                        <div class="col-md-12">
+                            <table class="table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Número de Identificación</th>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Segundo Apellido</th>
+                                        <th>
+                                            Acciones
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in students %}
+                                        <tr>
+                                            <td>{{student.personal_id}}</td>
+                                            <td>{{student.name}}</td>
+                                            <td>{{student.last_name}}</td>
+                                            <td>{{student.second_last_name}}</td>
+                                            <td>
+                                                <a href="{{ url_for('get_student', student_id=student.student_id) }}"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

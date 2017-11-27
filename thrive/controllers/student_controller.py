@@ -2,6 +2,9 @@ import uuid
 from thrive import app, login_manager
 from thrive.models.graph import Student
 from thrive.security.iam import requires_roles
+from thrive.models.transactions import (
+    get_students_by_level
+)
 from flask_login import login_user, login_required, current_user
 from flask import jsonify, request, render_template, redirect, url_for
 
@@ -10,8 +13,33 @@ from flask import jsonify, request, render_template, redirect, url_for
 # VIEW STUDENT
 # ==========================================================================
 
+
 # --------------------------------------------------------------------------
 # GET: /STUDENT
+# --------------------------------------------------------------------------
+@app.route('/student/list', methods=['GET'])
+@login_required
+@requires_roles('STUDENT_ADMIN', 'SYS_ADMIN', 'TEACHERS', 'DIRECTORS')
+def get_find_students():
+    return render_template("student/find.html")
+
+
+# --------------------------------------------------------------------------
+# GET: /STUDENT
+# --------------------------------------------------------------------------
+@app.route('/student/list', methods=['POST'])
+@login_required
+@requires_roles('STUDENT_ADMIN', 'SYS_ADMIN', 'TEACHERS', 'DIRECTORS')
+def post_find_students():
+    students = get_students_by_level(
+        education_level=request.form['education-level'],
+        education_level_year=request.form['education-level-year']
+    )
+    return render_template("student/list.html", students=students)
+
+
+# --------------------------------------------------------------------------
+# GET: /STUDENT/<STUDENT_ID>
 # --------------------------------------------------------------------------
 @app.route('/student/<student_id>', methods=['GET'])
 @login_required
@@ -60,6 +88,7 @@ def post_add_student():
             second_last_name=request.form['second-last-name'],
             education_level=request.form['education-level'],
             education_level_year=request.form['education-level-year'],
+            section=request.form['section'],
             active=True
         )
         student.set_date_of_birth(

@@ -151,4 +151,17 @@ def add_teacher_to_course(course, user):
         return True
     return False
     
+# ------------------------------------------------------------------------------
+# ADD PERIOD TO COURSE
+# ------------------------------------------------------------------------------                
+def add_period_to_course(period, course)
+    ""
+    ""
+    if period is not None and course is not Note:
         
+        course.period.connect(period)
+        course.save()
+        period.courses.connect(course)
+        period.save()
+        return True
+    return False

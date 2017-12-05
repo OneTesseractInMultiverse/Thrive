@@ -115,4 +115,53 @@ def spawn_periods_for_year(year, denominator):
         return True
     return False
     
-
+# ------------------------------------------------------------------------------
+# ADD COURSE
+# ------------------------------------------------------------------------------
+def add_course(student,course):
+    try:
+        courses = Course.nodes.get_or_none(course_id=course.course_id)
+        if courses is not None:
+            courses.title = course.title
+            courses.description = course.description
+            courses.year = course.year
+            courses.education_level_year = course.education_level_year
+        else:
+            courses.save()
+            courses.students.connect(student)
+            student.courses.connect(courses)
+            student.save()
+        return True
+    except Exception as ex:
+        # TODO proper exception handling
+        print(ex)
+        return False
+        
+# ------------------------------------------------------------------------------
+# ADD TEACHER TO COURSE
+# ------------------------------------------------------------------------------        
+def add_teacher_to_course(course, user):
+    ""
+    ""
+    if user is not None and course is not None:
+        user.courses.connect(course)
+        user.save()
+        course.taught_by.connect(user)
+        course.save()
+        return True
+    return False
+    
+# ------------------------------------------------------------------------------
+# ADD PERIOD TO COURSE
+# ------------------------------------------------------------------------------                
+def add_period_to_course(period, course)
+    ""
+    ""
+    if period is not None and course is not Note:
+        
+        course.period.connect(period)
+        course.save()
+        period.courses.connect(course)
+        period.save()
+        return True
+    return False
